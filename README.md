@@ -11,13 +11,13 @@ Interface language: JavaScript.
 
 [User interface images](https://github.com/Atymelancholy/F1-Prognosis/tree/main/Mockups)
 
-[Diagrams]
+Diagrams
 
-[java code] 
-[javascript code]
+java code
+javascript code
 
 Used patterns:  
 under development
 
-[Test plan]  
-[Test results]
+Test plan
+Test results
