@@ -1,14 +1,20 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = () => {
     const { user, logout, isAuthenticated } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = () => {
         logout();
         navigate('/');
+    };
+
+    // Функция для проверки активного пути
+    const isActive = (path) => {
+        return location.pathname === path;
     };
 
     return (
@@ -19,10 +25,16 @@ const Sidebar = () => {
                 </Link>
 
                 <div className="sidebar-menu">
-                    <Link to="/" className="sidebar-link">
+                    <Link
+                        to="/"
+                        className={`sidebar-link ${isActive('/') ? 'active' : ''}`}
+                    >
                         📅 Calendar
                     </Link>
-                    <Link to="/leaderboard" className="sidebar-link">
+                    <Link
+                        to="/leaderboard"
+                        className={`sidebar-link ${isActive('/leaderboard') ? 'active' : ''}`}
+                    >
                         🏆 Leaderboard
                     </Link>
                 </div>
@@ -31,7 +43,7 @@ const Sidebar = () => {
                     {isAuthenticated ? (
                         <>
                             <div className="sidebar-user">
-                                Welcome, {user?.username}
+                                👋 Welcome, {user?.username}
                             </div>
                             <button onClick={handleLogout} className="sidebar-logout">
                                 🚪 Logout
@@ -39,10 +51,16 @@ const Sidebar = () => {
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="sidebar-link">
+                            <Link
+                                to="/login"
+                                className={`sidebar-link ${isActive('/login') ? 'active' : ''}`}
+                            >
                                 🔑 Login
                             </Link>
-                            <Link to="/register" className="sidebar-link">
+                            <Link
+                                to="/register"
+                                className={`sidebar-link ${isActive('/register') ? 'active' : ''}`}
+                            >
                                 📝 Register
                             </Link>
                         </>
