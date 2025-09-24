@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import Navbar from './components/Layout/Navbar';
+import Sidebar from './components/Layout/Sidebar';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
@@ -13,8 +13,8 @@ function App() {
         <AuthProvider>
             <Router>
                 <div className="App">
-                    <Navbar />
-                    <div className="container">
+                    <Sidebar />
+                    <div className="main-content">
                         <Routes>
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/register" element={<RegisterPage />} />
