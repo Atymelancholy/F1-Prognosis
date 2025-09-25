@@ -16,12 +16,10 @@ const Sidebar = () => {
         navigate('/login');
     };
 
-    // Функция для проверки активного пути
     const isActive = (path) => {
         return location.pathname === path;
     };
 
-    // Основные навигационные элементы
     const navItems = [
         { path: '/leaderboard', label: 'Leaderboard' },
         { path: '/', label: 'Calendar' },
@@ -31,9 +29,10 @@ const Sidebar = () => {
     return (
         <nav className="sidebar">
             <div className="sidebar-container">
-                <Link to="/" className="sidebar-logo">
-                    🏎️ F1 Prognosis
-                </Link>
+                {/* Заменил Link на обычный div */}
+                <div className="sidebar-logo">
+                    Menu
+                </div>
 
                 <div className="sidebar-menu">
                     {navItems.map((item) => (
@@ -47,7 +46,6 @@ const Sidebar = () => {
                         </Link>
                     ))}
 
-                    {/* Динамическая кнопка Sign Out / Sign In */}
                     {isAuthenticated ? (
                         <button
                             onClick={handleLogout}
@@ -67,7 +65,6 @@ const Sidebar = () => {
                     )}
                 </div>
 
-                {/* Блок с приветствием (только для авторизованных) */}
                 {isAuthenticated && (
                     <div className="sidebar-user">
                         <span className="link-icon">👋</span>

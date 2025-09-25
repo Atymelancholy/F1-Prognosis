@@ -4,11 +4,19 @@ import OIPImage from '../../assets/R.png';
 
 const Leaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
+    const [filteredLeaderboard, setFilteredLeaderboard] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showFilterModal, setShowFilterModal] = useState(false);
+    const [sortOrder, setSortOrder] = useState('desc'); // 'desc' или 'asc'
 
     useEffect(() => {
         loadLeaderboard();
     }, []);
+
+    useEffect(() => {
+        // При изменении исходных данных или порядка сортировки - применяем фильтр
+        sortLeaderboard();
+    }, [leaderboard, sortOrder]);
 
     const loadLeaderboard = async () => {
         try {
@@ -21,8 +29,28 @@ const Leaderboard = () => {
         }
     };
 
+    const sortLeaderboard = () => {
+        const sorted = [...leaderboard].sort((a, b) => {
+            if (sortOrder === 'desc') {
+                return b.totalScore - a.totalScore; // По убыванию
+            } else {
+                return a.totalScore - b.totalScore; // По возрастанию
+            }
+        });
+        setFilteredLeaderboard(sorted);
+    };
+
     const handleFilterClick = () => {
-        console.log('Filter button clicked');
+        setShowFilterModal(true);
+    };
+
+    const handleSortOrderChange = (order) => {
+        setSortOrder(order);
+        setShowFilterModal(false);
+    };
+
+    const closeModal = () => {
+        setShowFilterModal(false);
     };
 
     if (loading) {
@@ -49,28 +77,54 @@ const Leaderboard = () => {
                 <span className="column-score">Score</span>
             </div>
 
-            <table className="leaderboard-table">
-                <thead>
-                <tr>
-                    <th className="rank-header">RANK</th>
-                    <th className="profile-header">PROFILE</th>
-                    <th className="name-header">NAME</th>
-                    <th className="score-header">SCORE</th>
-                </tr>
-                </thead>
-                <tbody>
-                {leaderboard.map((user, index) => (
-                    <tr key={user.username}>
-                        <td className="rank-cell">{index + 1}</td>
-                        <td className="profile-cell">
+            {/* Данные таблицы */}
+            <div className="leaderboard-data">
+                {filteredLeaderboard.map((user, index) => (
+                    <div key={user.username} className="data-row">
+                        <div className="data-profile">
                             <div className="avatar-placeholder">👤</div>
-                        </td>
-                        <td className="name-cell">{user.username}</td>
-                        <td className="score-cell">{user.totalScore}</td>
-                    </tr>
+                        </div>
+                        <div className="data-name">{user.username}</div>
+                        <div className="data-score">{user.totalScore}</div>
+                    </div>
                 ))}
-                </tbody>
-            </table>
+            </div>
+
+            {/* Модальное окно фильтра */}
+            {showFilterModal && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="filter-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h3>Sort by Score</h3>
+                            <button onClick={closeModal} className="modal-close">×</button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="filter-options">
+                                <button
+                                    className={`filter-option ${sortOrder === 'desc' ? 'active' : ''}`}
+                                    onClick={() => handleSortOrderChange('desc')}
+                                >
+                                    <span className="option-icon">⬇️</span>
+                                    <span className="option-text">
+                                        <strong>Descending</strong>
+                                        <span>Highest to Lowest</span>
+                                    </span>
+                                </button>
+                                <button
+                                    className={`filter-option ${sortOrder === 'asc' ? 'active' : ''}`}
+                                    onClick={() => handleSortOrderChange('asc')}
+                                >
+                                    <span className="option-icon">⬆️</span>
+                                    <span className="option-text">
+                                        <strong>Ascending</strong>
+                                        <span>Lowest to Highest</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

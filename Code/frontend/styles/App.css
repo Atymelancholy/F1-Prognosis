@@ -43,21 +43,97 @@ body {
     flex-direction: column;
 }
 
+/* Sidebar Logo - увеличиваем до размера Leaderboard */
 .sidebar-logo {
-    color: #e10600;
-    font-size: 1.6rem;
-    font-weight: bold;
+    color: #000;
+    font-size: 2.2rem; /* Такой же размер как у Leaderboard */
+    font-weight: 700; /* Такой же жирный шрифт */
     text-decoration: none;
     display: block;
-    padding: 0 25px 25px;
+    padding: 30px 25px 25px;
     border-bottom: 1px solid #eee;
     margin-bottom: 25px;
-    transition: color 0.3s;
+    cursor: default;
+    pointer-events: none;
+    line-height: 1;
+    font-family: 'Arial', sans-serif; /* Такое же семейство шрифтов */
 }
 
-.sidebar-logo:hover {
-    color: #c10500;
-    transform: translateX(5px);
+/* Leaderboard Title */
+.leaderboard-title {
+    color: #000;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+    padding: 0;
+    line-height: 1;
+    font-family: 'Arial', sans-serif; /* Явно указываем тот же шрифт */
+}
+
+/* Точная настройка вертикального выравнивания */
+.sidebar-logo {
+    display: flex;
+    align-items: center; /* Выравниваем текст по вертикали */
+    height: 60px; /* Фиксированная высота для точного выравнивания */
+}
+
+.leaderboard-title {
+    display: flex;
+    align-items: center; /* Выравниваем текст по вертикали */
+    height: 60px; /* Такая же высота как у Menu */
+}
+
+.leaderboard-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.leaderboard-title-section {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-top: 0;
+    height: 60px; /* Такая же высота как у Menu */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar-logo {
+        font-size: 1.8rem;
+        height: 50px;
+        padding: 20px 15px 15px;
+    }
+
+    .leaderboard-title {
+        font-size: 1.8rem;
+        height: 50px;
+        margin: 20px 0 0 0;
+    }
+
+    .leaderboard-title-section {
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-logo {
+        font-size: 1.6rem;
+        height: 45px;
+        padding: 15px 10px 10px;
+    }
+
+    .leaderboard-title {
+        font-size: 1.6rem;
+        height: 45px;
+        margin: 15px 0 0 0;
+    }
+
+    .leaderboard-title-section {
+        height: 45px;
+    }
 }
 
 .sidebar-menu {
@@ -1147,65 +1223,92 @@ body {
 .columns-header {
     display: flex;
     align-items: center;
-    padding: 0 120px 15px 120px;
+    padding: 0 20px 15px 100px;
     margin-bottom: 10px;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: none;
     font-weight: 600;
     color: #333;
-    font-size: 0.9rem;
-    text-transform: uppercase;
+    font-size: 1.2rem;
+
     letter-spacing: 0.5px;
+    position: relative;
+}
+
+/* Линия под заголовками колонок */
+.columns-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 20px;
+    height: 1px;
+    background-color: #e0e0e0;
 }
 
 .column-profile {
-    width: 80px;
+    width: 120px; /* Вернул первоначальную ширину */
     text-align: center;
 }
 
 .column-name {
-    width: 350px; /* Увеличил ширину, сдвинул вправо */
-    padding-left: 40px; /* Добавил отступ слева */
+    width: 400px; /* Вернул первоначальную ширину */
+    padding-left: 60px; /* Вернул первоначальный отступ */
 }
 
 .column-score {
-    width: 100px;
+    width: 120px; /* Вернул первоначальную ширину */
     text-align: right;
 }
 
-/* Leaderboard Table Styles */
-.leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: none;
-    border: none;
+/* Данные таблицы */
+.leaderboard-data {
+    background: transparent;
 }
 
-.leaderboard-table th {
+.data-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px 12px 100px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    border-bottom: none;
+}
+
+/* Линии между строками */
+.data-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 20px;
+    height: 1px;
+    background-color: #eee;
+}
+
+.data-row:last-child::after {
     display: none;
 }
 
-.leaderboard-table td {
-    padding: 16px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-    background-color: transparent !important;
+.data-row:hover {
+    background-color: #f8f9fa;
 }
 
-/* Колонка RANK */
-.rank-cell {
-    padding-left: 120px !important;
-    width: 100px;
-    font-weight: 600;
-    color: #333;
-}
-
-/* Колонка PROFILE */
-.profile-cell {
-    width: 80px;
+.data-profile {
+    width: 120px; /* Вернул первоначальную ширину */
     text-align: center;
+}
+
+.data-name {
+    width: 400px; /* Вернул первоначальную ширину */
+    padding-left: 60px; /* Вернул первоначальный отступ */
+    font-weight: 500;
+}
+
+.data-score {
+    width: 120px; /* Вернул первоначальную ширину */
+    text-align: right;
+    font-weight: 600;
+    color: #e10600;
 }
 
 .avatar-placeholder {
@@ -1220,45 +1323,40 @@ body {
     margin: 0 auto;
 }
 
-/* Колонка NAME - сдвинута вправо */
-.name-cell {
-    width: 350px;
-    font-weight: 500;
-    padding-left: 40px !important; /* Сдвигаем содержимое */
-}
-
-/* Колонка SCORE */
-.score-cell {
-    width: 100px;
-    text-align: right;
-    font-weight: 600;
-    color: #e10600;
-}
-
-.leaderboard-table tr:hover {
-    background-color: #f8f9fa;
-}
-
-.leaderboard-table tr:last-child td {
-    border-bottom: none;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .columns-header {
-        padding: 0 60px 15px 60px;
-        font-size: 0.8rem;
+        padding: 0 15px 15px 60px;
     }
 
-    .rank-cell {
-        padding-left: 60px !important;
-        width: 80px;
+    .columns-header::after {
+        left: 60px;
+        right: 15px;
+    }
+
+    .data-row {
+        padding: 10px 15px 10px 60px;
+    }
+
+    .data-row::after {
+        left: 60px;
+        right: 15px;
+    }
+
+    .column-profile,
+    .data-profile {
+        width: 100px;
     }
 
     .column-name,
-    .name-cell {
-        width: 250px;
-        padding-left: 30px !important;
+    .data-name {
+        width: 300px;
+        padding-left: 40px;
+    }
+
+    .column-score,
+    .data-score {
+        width: 100px;
     }
 
     .avatar-placeholder {
@@ -1270,30 +1368,38 @@ body {
 
 @media (max-width: 480px) {
     .columns-header {
-        padding: 0 40px 10px 40px;
+        padding: 0 10px 10px 40px;
         font-size: 0.7rem;
     }
 
-    .rank-cell {
-        padding-left: 40px !important;
-        width: 60px;
-        font-size: 0.8rem;
+    .columns-header::after {
+        left: 40px;
+        right: 10px;
+    }
+
+    .data-row {
+        padding: 8px 10px 8px 40px;
+    }
+
+    .data-row::after {
+        left: 40px;
+        right: 10px;
     }
 
     .column-profile,
-    .profile-cell {
-        width: 60px;
+    .data-profile {
+        width: 80px;
     }
 
     .column-name,
-    .name-cell {
-        width: 180px;
-        padding-left: 20px !important;
+    .data-name {
+        width: 200px;
+        padding-left: 30px;
         font-size: 0.8rem;
     }
 
     .column-score,
-    .score-cell {
+    .data-score {
         width: 80px;
         font-size: 0.8rem;
     }
@@ -1302,5 +1408,119 @@ body {
         width: 30px;
         height: 30px;
         font-size: 0.9rem;
+    }
+}
+/* Стили для модального окна фильтра */
+.filter-modal {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid #e0e0e0;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.filter-option:hover {
+    border-color: #ccc;
+    background-color: #f9f9f9;
+}
+
+.filter-option.active {
+    border-color: #e10600;
+    background-color: #fff5f5;
+}
+
+.option-icon {
+    font-size: 1.5rem;
+    margin-right: 12px;
+    width: 30px;
+    text-align: center;
+}
+
+.option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.option-text strong {
+    font-weight: 600;
+    color: #333;
+}
+
+.option-text span {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.filter-option.active .option-text strong {
+    color: #e10600;
+}
+
+/* Анимация появления модального окна */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.filter-modal {
+    animation: modalFadeIn 0.3s ease;
+}
+
+/* Responsive для модального окна */
+@media (max-width: 480px) {
+    .filter-modal {
+        max-width: 90%;
+    }
+
+    .filter-option {
+        padding: 12px;
+    }
+
+    .option-icon {
+        font-size: 1.3rem;
+        margin-right: 10px;
     }
 }
