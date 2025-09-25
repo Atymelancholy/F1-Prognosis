@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { dataService } from '../../services/dataService';
-import OIPImage from '../../assets/OIP.webp';
+import OIPImage from '../../assets/R.png';
 
 const Leaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
@@ -22,7 +22,6 @@ const Leaderboard = () => {
     };
 
     const handleFilterClick = () => {
-        // Здесь будет логика фильтрации
         console.log('Filter button clicked');
     };
 
@@ -36,25 +35,38 @@ const Leaderboard = () => {
                 <div className="leaderboard-title-section">
                     <h2 className="leaderboard-title">Leaderboard</h2>
                     <button className="filter-btn" onClick={handleFilterClick}>
+                        <span className="filter-icon">⏷</span>
                         Filter
                     </button>
                 </div>
                 <img src={OIPImage} alt="Trophy" className="leaderboard-image" />
             </div>
+
+            {/* Строка с заголовками колонок */}
+            <div className="columns-header">
+                <span className="column-profile">Profile</span>
+                <span className="column-name">Name</span>
+                <span className="column-score">Score</span>
+            </div>
+
             <table className="leaderboard-table">
                 <thead>
                 <tr>
-                    <th>Rank</th>
-                    <th>Username</th>
-                    <th>Score</th>
+                    <th className="rank-header">RANK</th>
+                    <th className="profile-header">PROFILE</th>
+                    <th className="name-header">NAME</th>
+                    <th className="score-header">SCORE</th>
                 </tr>
                 </thead>
                 <tbody>
                 {leaderboard.map((user, index) => (
                     <tr key={user.username}>
-                        <td>{index + 1}</td>
-                        <td>{user.username}</td>
-                        <td>{user.totalScore}</td>
+                        <td className="rank-cell">{index + 1}</td>
+                        <td className="profile-cell">
+                            <div className="avatar-placeholder">👤</div>
+                        </td>
+                        <td className="name-cell">{user.username}</td>
+                        <td className="score-cell">{user.totalScore}</td>
                     </tr>
                 ))}
                 </tbody>

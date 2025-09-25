@@ -237,22 +237,27 @@ body {
     padding: 0;
     line-height: 1.2;
 }
-
 .filter-btn {
     background: none;
     border: 1px solid #ccc;
     color: #666;
-    padding: 12px 24px; /* Увеличил padding для большей высоты */
-    border-radius: 6px; /* Немного увеличил радиус */
+    padding: 12px 20px 12px 16px; /* Увеличил левый padding для иконки */
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 1.1rem; /* Увеличил размер шрифта */
+    font-size: 1.1rem;
     font-weight: 500;
     transition: all 0.3s ease;
-    height: 50px; /* Фиксированная высота как у заголовка */
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 100px; /* Минимальная ширина */
+    min-width: 120px; /* Увеличил ширину для иконки */
+    gap: 8px; /* Расстояние между иконкой и текстом */
+}
+
+.filter-icon {
+    font-size: 1.2rem;
+    margin-right: 4px;
 }
 
 .filter-btn:hover {
@@ -264,6 +269,35 @@ body {
 .filter-btn:active {
     background-color: #e0e0e0;
     transform: translateY(1px);
+}
+
+/* Responsive Design для Leaderboard */
+@media (max-width: 768px) {
+    .filter-btn {
+        height: 45px;
+        font-size: 1rem;
+        min-width: 110px;
+        padding: 10px 18px 10px 14px;
+        gap: 6px;
+    }
+
+    .filter-icon {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        height: 40px;
+        padding: 8px 16px 8px 12px;
+        font-size: 0.9rem;
+        min-width: 100px;
+        gap: 4px;
+    }
+
+    .filter-icon {
+        font-size: 1rem;
+    }
 }
 
 .leaderboard-image {
@@ -1108,4 +1142,165 @@ body {
 /* Smooth transitions */
 .sidebar-link, .sidebar-logo {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Строка с заголовками колонок */
+.columns-header {
+    display: flex;
+    align-items: center;
+    padding: 0 120px 15px 120px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.column-profile {
+    width: 80px;
+    text-align: center;
+}
+
+.column-name {
+    width: 350px; /* Увеличил ширину, сдвинул вправо */
+    padding-left: 40px; /* Добавил отступ слева */
+}
+
+.column-score {
+    width: 100px;
+    text-align: right;
+}
+
+/* Leaderboard Table Styles */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: none;
+    border: none;
+}
+
+.leaderboard-table th {
+    display: none;
+}
+
+.leaderboard-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    background-color: transparent !important;
+}
+
+/* Колонка RANK */
+.rank-cell {
+    padding-left: 120px !important;
+    width: 100px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Колонка PROFILE */
+.profile-cell {
+    width: 80px;
+    text-align: center;
+}
+
+.avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin: 0 auto;
+}
+
+/* Колонка NAME - сдвинута вправо */
+.name-cell {
+    width: 350px;
+    font-weight: 500;
+    padding-left: 40px !important; /* Сдвигаем содержимое */
+}
+
+/* Колонка SCORE */
+.score-cell {
+    width: 100px;
+    text-align: right;
+    font-weight: 600;
+    color: #e10600;
+}
+
+.leaderboard-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.leaderboard-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .columns-header {
+        padding: 0 60px 15px 60px;
+        font-size: 0.8rem;
+    }
+
+    .rank-cell {
+        padding-left: 60px !important;
+        width: 80px;
+    }
+
+    .column-name,
+    .name-cell {
+        width: 250px;
+        padding-left: 30px !important;
+    }
+
+    .avatar-placeholder {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .columns-header {
+        padding: 0 40px 10px 40px;
+        font-size: 0.7rem;
+    }
+
+    .rank-cell {
+        padding-left: 40px !important;
+        width: 60px;
+        font-size: 0.8rem;
+    }
+
+    .column-profile,
+    .profile-cell {
+        width: 60px;
+    }
+
+    .column-name,
+    .name-cell {
+        width: 180px;
+        padding-left: 20px !important;
+        font-size: 0.8rem;
+    }
+
+    .column-score,
+    .score-cell {
+        width: 80px;
+        font-size: 0.8rem;
+    }
+
+    .avatar-placeholder {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
 }
