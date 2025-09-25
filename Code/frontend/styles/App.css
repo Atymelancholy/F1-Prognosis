@@ -166,6 +166,204 @@ body {
     padding: 0;
 }
 
+
+/* Leaderboard Title Styles - ОБНОВЛЕНО */
+/* Leaderboard Title Styles - ОБНОВЛЕНО */
+.leaderboard h2 {
+    color: #000;
+    text-align: left;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: normal;
+    padding-left: 20px; /* Добавляем отступ от левого края */
+    margin-top: 30px;
+    padding-top: 0;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.leaderboard-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.leaderboard-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.leaderboard-table tr:last-child td {
+    border-bottom: none;
+}
+/* Leaderboard Header Styles */
+.leaderboard-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.leaderboard-title-section {
+    display: flex;
+    align-items: center;
+    gap: 60px; /* Увеличил расстояние до ширины кнопки */
+    margin-top: 30px;
+}
+
+.leaderboard-title {
+    color: #000;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.filter-btn {
+    background: none;
+    border: 1px solid #ccc;
+    color: #666;
+    padding: 12px 24px; /* Увеличил padding для большей высоты */
+    border-radius: 6px; /* Немного увеличил радиус */
+    cursor: pointer;
+    font-size: 1.1rem; /* Увеличил размер шрифта */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    height: 50px; /* Фиксированная высота как у заголовка */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px; /* Минимальная ширина */
+}
+
+.filter-btn:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+    color: #333;
+}
+
+.filter-btn:active {
+    background-color: #e0e0e0;
+    transform: translateY(1px);
+}
+
+.leaderboard-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-top: 30px;
+}
+
+/* Leaderboard Table Styles */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.leaderboard-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.leaderboard-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.leaderboard-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Responsive Design для Leaderboard */
+@media (max-width: 768px) {
+    .leaderboard-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 15px;
+        align-items: center;
+    }
+
+    .leaderboard-title-section {
+        flex-direction: column;
+        gap: 20px; /* Уменьшил расстояние на мобильных */
+        margin-bottom: 15px;
+    }
+
+    .leaderboard-title {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 0;
+    }
+
+    .filter-btn {
+        height: 45px; /* Чуть меньше на мобильных */
+        font-size: 1rem;
+        min-width: 90px;
+        margin-top: 0;
+    }
+
+    .leaderboard-image {
+        margin-top: 0;
+        width: 96px;
+        height: 96px;
+    }
+}
+
+@media (max-width: 480px) {
+    .leaderboard-title {
+        font-size: 1.6rem;
+    }
+
+    .leaderboard-image {
+        width: 84px;
+        height: 84px;
+    }
+
+    .filter-btn {
+        height: 40px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        min-width: 80px;
+    }
+
+    .leaderboard-title-section {
+        gap: 15px;
+    }
+}
 /* Auth Styles */
 .auth-container {
     min-height: 100vh;
@@ -387,48 +585,6 @@ body {
     transform: none;
 }
 
-/* Leaderboard Styles */
-.leaderboard h2 {
-    margin-bottom: 30px;
-    color: #333;
-    text-align: center;
-    font-size: 2.2rem;
-}
-
-.leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border: 1px solid #e0e0e0;
-}
-
-.leaderboard-table th,
-.leaderboard-table td {
-    padding: 16px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.leaderboard-table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-    color: #333;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.leaderboard-table tr:hover {
-    background-color: #f8f9fa;
-}
-
-.leaderboard-table tr:last-child td {
-    border-bottom: none;
-}
-
 /* Modal Styles */
 .modal-overlay {
     position: fixed;
@@ -630,6 +786,12 @@ body {
     .modal-overlay {
         padding: 10px;
     }
+
+    /* Responsive для Leaderboard */
+    .leaderboard h2 {
+        text-align: center;
+        font-size: 1.8rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -656,7 +818,7 @@ body {
     }
 
     .leaderboard h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .modal-header {
@@ -712,7 +874,6 @@ body {
 .modal::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
-/* App.css - Добавляем стили для индикаторов активной страницы */
 
 /* App.css - Updated for New Menu Structure */
 
@@ -792,13 +953,13 @@ body {
 
 /* Special styles for Sign Out button */
 .sidebar-signout {
-    margin-top: auto; /* Push to bottom */
+    margin-top: auto;
     border-top: 1px solid #eee;
     padding-top: 15px;
 }
 
 .sidebar-signout::before {
-    background-color: #ff6b6b; /* Red tint for sign out */
+    background-color: #ff6b6b;
 }
 
 .sidebar-signout:hover::before {
@@ -807,7 +968,7 @@ body {
 
 /* Special styles for Sign In button */
 .sidebar-signin::before {
-    background-color: #4ecdc4; /* Green tint for sign in */
+    background-color: #4ecdc4;
 }
 
 .sidebar-signin:hover::before {
@@ -815,7 +976,7 @@ body {
 }
 
 .sidebar-signin.active::before {
-    background-color: #e10600; /* Keep red for active state */
+    background-color: #e10600;
 }
 
 /* Icon and Text */
@@ -853,24 +1014,6 @@ body {
     background-color: #fafafa;
     border-radius: 8px;
     margin: 15px;
-}
-
-/* Logo */
-.sidebar-logo {
-    color: #e10600;
-    font-size: 1.6rem;
-    font-weight: bold;
-    text-decoration: none;
-    display: block;
-    padding: 0 25px 25px;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 25px;
-    transition: color 0.3s;
-}
-
-.sidebar-logo:hover {
-    color: #c10500;
-    transform: translateX(5px);
 }
 
 /* Focus states */

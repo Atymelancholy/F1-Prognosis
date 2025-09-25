@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { dataService } from '../../services/dataService';
+import OIPImage from '../../assets/OIP.webp';
 
 const Leaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
@@ -20,13 +21,26 @@ const Leaderboard = () => {
         }
     };
 
+    const handleFilterClick = () => {
+        // Здесь будет логика фильтрации
+        console.log('Filter button clicked');
+    };
+
     if (loading) {
         return <div className="loading">Loading leaderboard...</div>;
     }
 
     return (
         <div className="leaderboard">
-            <h2>Leaderboard</h2>
+            <div className="leaderboard-header">
+                <div className="leaderboard-title-section">
+                    <h2 className="leaderboard-title">Leaderboard</h2>
+                    <button className="filter-btn" onClick={handleFilterClick}>
+                        Filter
+                    </button>
+                </div>
+                <img src={OIPImage} alt="Trophy" className="leaderboard-image" />
+            </div>
             <table className="leaderboard-table">
                 <thead>
                 <tr>
