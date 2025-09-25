@@ -12,21 +12,20 @@ const Sidebar = () => {
         navigate('/');
     };
 
+    const handleSignIn = () => {
+        navigate('/login');
+    };
+
     // Функция для проверки активного пути
     const isActive = (path) => {
         return location.pathname === path;
     };
 
-    // Навигационные элементы
+    // Основные навигационные элементы
     const navItems = [
-        { path: '/', icon: '📅', label: 'Calendar' },
-        { path: '/leaderboard', icon: '🏆', label: 'Leaderboard' }
-    ];
-
-    // Auth элементы
-    const authItems = [
-        { path: '/login', icon: '🔑', label: 'Login' },
-        { path: '/register', icon: '📝', label: 'Register' }
+        { path: '/leaderboard', label: 'Leaderboard' },
+        { path: '/', label: 'Calendar' },
+        { path: '/profile', label: 'Profile' }
     ];
 
     return (
@@ -47,33 +46,34 @@ const Sidebar = () => {
                             <span className="link-text">{item.label}</span>
                         </Link>
                     ))}
-                </div>
 
-                <div className="sidebar-auth">
+                    {/* Динамическая кнопка Sign Out / Sign In */}
                     {isAuthenticated ? (
-                        <>
-                            <div className="sidebar-user">
-                                <span className="link-icon">👋</span>
-                                Welcome, {user?.username}
-                            </div>
-                            <button onClick={handleLogout} className="sidebar-logout">
-                                <span className="link-icon">🚪</span>
-                                <span className="link-text">Logout</span>
-                            </button>
-                        </>
+                        <button
+                            onClick={handleLogout}
+                            className="sidebar-link sidebar-signout"
+                        >
+                            <span className="link-icon">🚪</span>
+                            <span className="link-text">Sign Out</span>
+                        </button>
                     ) : (
-                        authItems.map((item) => (
-                            <Link
-                                key={item.path}
-                                to={item.path}
-                                className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
-                            >
-                                <span className="link-icon">{item.icon}</span>
-                                <span className="link-text">{item.label}</span>
-                            </Link>
-                        ))
+                        <button
+                            onClick={handleSignIn}
+                            className="sidebar-link sidebar-signin"
+                        >
+                            <span className="link-icon">🔑</span>
+                            <span className="link-text">Sign In</span>
+                        </button>
                     )}
                 </div>
+
+                {/* Блок с приветствием (только для авторизованных) */}
+                {isAuthenticated && (
+                    <div className="sidebar-user">
+                        <span className="link-icon">👋</span>
+                        Welcome, {user?.username || user?.email}
+                    </div>
+                )}
             </div>
         </nav>
     );

@@ -6,6 +6,11 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import Leaderboard from './components/Leaderboard/Leaderboard';
+// App.js - добавить новый маршрут
+import ProfilePage from './pages/ProfilePage';
+
+// В компоненте Routes добавить:
+
 import './styles/App.css';
 
 function App() {
@@ -21,6 +26,7 @@ function App() {
                             <Route path="/" element={<HomePage />} />
                             <Route path="/leaderboard" element={<Leaderboard />} />
                             <Route path="*" element={<Navigate to="/" replace />} />
+                            <Route path="/profile" element={<ProfilePage />} />
                         </Routes>
                     </div>
                 </div>
