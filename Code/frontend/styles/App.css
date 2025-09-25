@@ -712,3 +712,357 @@ body {
 .modal::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
+/* App.css - Добавляем стили для индикаторов активной страницы */
+
+/* App.css - Updated Sidebar Styles with Proper Spacing */
+
+/* Sidebar Menu Items with Larger Indicators */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 25px; /* Increased padding */
+    flex: 1;
+}
+
+.sidebar-link {
+    color: #333;
+    text-decoration: none;
+    padding: 14px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Increased gap between icon and text */
+    font-weight: 500;
+    background-color: transparent;
+    position: relative;
+    border: none;
+    width: 100%;
+    text-align: left;
+    margin-left: 10px; /* Move buttons further from edge */
+}
+
+/* Larger indicator matching icon size */
+.sidebar-link::before {
+    content: '';
+    width: 20px; /* Same size as icons */
+    height: 20px; /* Same size as icons */
+    border-radius: 50%;
+    background-color: #ccc; /* Gray by default */
+    transition: all 0.3s ease;
+    position: absolute;
+    left: -25px; /* Move further from edge */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Light gray background on hover */
+.sidebar-link:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    transform: translateX(5px);
+}
+
+/* Active state - red indicator and light gray background */
+.sidebar-link.active {
+    background-color: #f0f0f0;
+    color: #e10600;
+    font-weight: 600;
+}
+
+.sidebar-link.active::before {
+    background-color: #e10600; /* Red for active page */
+}
+
+/* Active state hover - slightly darker background */
+.sidebar-link.active:hover {
+    background-color: #e8e8e8;
+}
+
+/* Gray indicator becomes slightly darker on hover */
+.sidebar-link:not(.active):hover::before {
+    background-color: #999;
+}
+
+/* Icon and Text Alignment */
+.sidebar-link .link-icon {
+    font-size: 1.2rem;
+    width: 20px; /* Same size as circles */
+    height: 20px; /* Same size as circles */
+    text-align: center;
+    line-height: 20px; /* Center icon vertically */
+    transition: transform 0.3s ease;
+}
+
+.sidebar-link:hover .link-icon {
+    transform: scale(1.1);
+}
+
+.sidebar-link .link-text {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+/* Auth Links Styles */
+.sidebar-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 25px;
+    border-top: 1px solid #eee;
+    margin-top: auto;
+}
+
+.sidebar-auth .sidebar-link {
+    justify-content: center;
+    margin: 5px 0;
+    margin-left: 10px; /* Consistent with main links */
+}
+
+.sidebar-auth .sidebar-link::before {
+    left: -25px; /* Same position as main links */
+}
+
+/* Logout Button Styles */
+.sidebar-logout {
+    background: none;
+    border: 1px solid #ddd;
+    color: #666;
+    padding: 12px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: center;
+    position: relative;
+    margin-left: 10px; /* Consistent spacing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.sidebar-logout::before {
+    content: '';
+    width: 20px; /* Same size as other circles */
+    height: 20px; /* Same size as other circles */
+    border-radius: 50%;
+    background-color: #ccc;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: -25px; /* Same position as other circles */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sidebar-logout:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    color: #333;
+}
+
+.sidebar-user {
+    color: #666;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-left: 10px; /* Consistent spacing */
+}
+
+/* Logo spacing adjustment */
+.sidebar-logo {
+    color: #e10600;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    padding: 0 25px 25px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 25px;
+    transition: color 0.3s;
+    margin-left: 10px; /* Consistent spacing */
+}
+
+.sidebar-logo:hover {
+    color: #c10500;
+    transform: translateX(5px);
+}
+
+/* Focus states */
+.sidebar-link:focus, .sidebar-logout:focus {
+    outline: 2px solid #ddd;
+    outline-offset: 1px;
+}
+
+/* Active state for when button is being clicked */
+.sidebar-link:active, .sidebar-logout:active {
+    transform: scale(0.98);
+    background-color: #e8e8e8;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar-link::before {
+        left: -15px; /* Adjusted for mobile */
+        width: 18px;
+        height: 18px;
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 20px;
+    }
+
+    .sidebar-link {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+        transform: none !important;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        min-width: 100px;
+        margin-left: 0; /* Reset for mobile */
+    }
+
+    .sidebar-link::before {
+        position: static;
+        transform: none;
+        margin-bottom: 5px;
+    }
+
+    .sidebar-link:hover {
+        transform: translateY(-2px) !important;
+    }
+
+    .sidebar-link .link-icon {
+        font-size: 1.1rem;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+    }
+
+    .sidebar-link .link-text {
+        font-size: 0.8rem;
+    }
+
+    .sidebar-auth {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .sidebar-user {
+        text-align: left;
+        padding: 0;
+        margin: 0;
+        flex-direction: row;
+        margin-left: 0;
+    }
+
+    .sidebar-logout {
+        width: auto;
+        padding: 10px 15px;
+        margin-left: 0;
+        flex-direction: row;
+    }
+
+    .sidebar-logout::before {
+        position: static;
+        transform: none;
+        margin-right: 8px;
+        display: inline-block;
+    }
+
+    .sidebar-logo {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .sidebar-auth .sidebar-link {
+        margin-left: 0;
+    }
+
+    .sidebar-auth .sidebar-link::before {
+        position: static;
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-menu {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .sidebar-link {
+        flex-direction: row;
+        text-align: left;
+        min-width: auto;
+        gap: 12px;
+        margin-left: 10px;
+    }
+
+    .sidebar-link::before {
+        position: absolute;
+        left: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-bottom: 0;
+        width: 16px;
+        height: 16px;
+    }
+
+    .sidebar-link .link-icon {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        font-size: 1rem;
+    }
+
+    .sidebar-auth {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .sidebar-user {
+        text-align: center;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .sidebar-logout {
+        width: 100%;
+        margin-left: 10px;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .sidebar-logout::before {
+        position: absolute;
+        left: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-right: 0;
+        display: block;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Smooth transitions */
+.sidebar-link, .sidebar-logout, .sidebar-logo {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

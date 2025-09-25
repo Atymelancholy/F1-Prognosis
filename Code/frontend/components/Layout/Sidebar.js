@@ -17,6 +17,18 @@ const Sidebar = () => {
         return location.pathname === path;
     };
 
+    // Навигационные элементы
+    const navItems = [
+        { path: '/', icon: '📅', label: 'Calendar' },
+        { path: '/leaderboard', icon: '🏆', label: 'Leaderboard' }
+    ];
+
+    // Auth элементы
+    const authItems = [
+        { path: '/login', icon: '🔑', label: 'Login' },
+        { path: '/register', icon: '📝', label: 'Register' }
+    ];
+
     return (
         <nav className="sidebar">
             <div className="sidebar-container">
@@ -25,45 +37,41 @@ const Sidebar = () => {
                 </Link>
 
                 <div className="sidebar-menu">
-                    <Link
-                        to="/"
-                        className={`sidebar-link ${isActive('/') ? 'active' : ''}`}
-                    >
-                        📅 Calendar
-                    </Link>
-                    <Link
-                        to="/leaderboard"
-                        className={`sidebar-link ${isActive('/leaderboard') ? 'active' : ''}`}
-                    >
-                        🏆 Leaderboard
-                    </Link>
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.path}
+                            to={item.path}
+                            className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
+                        >
+                            <span className="link-icon">{item.icon}</span>
+                            <span className="link-text">{item.label}</span>
+                        </Link>
+                    ))}
                 </div>
 
                 <div className="sidebar-auth">
                     {isAuthenticated ? (
                         <>
                             <div className="sidebar-user">
-                                👋 Welcome, {user?.username}
+                                <span className="link-icon">👋</span>
+                                Welcome, {user?.username}
                             </div>
                             <button onClick={handleLogout} className="sidebar-logout">
-                                🚪 Logout
+                                <span className="link-icon">🚪</span>
+                                <span className="link-text">Logout</span>
                             </button>
                         </>
                     ) : (
-                        <>
+                        authItems.map((item) => (
                             <Link
-                                to="/login"
-                                className={`sidebar-link ${isActive('/login') ? 'active' : ''}`}
+                                key={item.path}
+                                to={item.path}
+                                className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
                             >
-                                🔑 Login
+                                <span className="link-icon">{item.icon}</span>
+                                <span className="link-text">{item.label}</span>
                             </Link>
-                            <Link
-                                to="/register"
-                                className={`sidebar-link ${isActive('/register') ? 'active' : ''}`}
-                            >
-                                📝 Register
-                            </Link>
-                        </>
+                        ))
                     )}
                 </div>
             </div>
