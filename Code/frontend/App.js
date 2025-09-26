@@ -6,10 +6,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import Leaderboard from './components/Leaderboard/Leaderboard';
-// App.js - добавить новый маршрут
 import ProfilePage from './pages/ProfilePage';
-
-// В компоненте Routes добавить:
+import ProtectedRoute from './components/Layout/ProtectedRoute';
 
 import './styles/App.css';
 
@@ -25,8 +23,18 @@ function App() {
                             <Route path="/register" element={<RegisterPage />} />
                             <Route path="/" element={<HomePage />} />
                             <Route path="/leaderboard" element={<Leaderboard />} />
+
+                            {/* Защищенный маршрут для Profile */}
+                            <Route
+                                path="/profile"
+                                element={
+                                    <ProtectedRoute>
+                                        <ProfilePage />
+                                    </ProtectedRoute>
+                                }
+                            />
+
                             <Route path="*" element={<Navigate to="/" replace />} />
-                            <Route path="/profile" element={<ProfilePage />} />
                         </Routes>
                     </div>
                 </div>

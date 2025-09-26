@@ -1,11 +1,12 @@
 import React from 'react';
 import Calendar from '../components/GrandPrix/Calendar';
+import OIPImage from "../assets/R.png";
 
 const HomePage = () => {
     return (
         <div className="home-page">
-            <h1>🏎️ F1 Prognosis - Calendar</h1>
-            <Calendar />
+
+            <Calendar/>
         </div>
     );
 };

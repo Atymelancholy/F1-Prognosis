@@ -20,22 +20,27 @@ const Sidebar = () => {
         return location.pathname === path;
     };
 
-    const navItems = [
+    // Основные навигационные элементы для всех пользователей
+    const publicNavItems = [
         { path: '/leaderboard', label: 'Leaderboard' },
-        { path: '/', label: 'Calendar' },
+        { path: '/', label: 'Calendar' }
+    ];
+
+    // Навигационные элементы только для авторизованных пользователей
+    const privateNavItems = [
         { path: '/profile', label: 'Profile' }
     ];
 
     return (
         <nav className="sidebar">
             <div className="sidebar-container">
-                {/* Заменил Link на обычный div */}
                 <div className="sidebar-logo">
                     Menu
                 </div>
 
                 <div className="sidebar-menu">
-                    {navItems.map((item) => (
+                    {/* Публичные пункты меню */}
+                    {publicNavItems.map((item) => (
                         <Link
                             key={item.path}
                             to={item.path}
@@ -46,6 +51,19 @@ const Sidebar = () => {
                         </Link>
                     ))}
 
+                    {/* Приватные пункты меню (только для авторизованных) */}
+                    {isAuthenticated && privateNavItems.map((item) => (
+                        <Link
+                            key={item.path}
+                            to={item.path}
+                            className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
+                        >
+                            <span className="link-icon">{item.icon}</span>
+                            <span className="link-text">{item.label}</span>
+                        </Link>
+                    ))}
+
+                    {/* Динамическая кнопка Sign Out / Sign In */}
                     {isAuthenticated ? (
                         <button
                             onClick={handleLogout}
@@ -65,6 +83,7 @@ const Sidebar = () => {
                     )}
                 </div>
 
+                {/* Блок с приветствием (только для авторизованных) */}
                 {isAuthenticated && (
                     <div className="sidebar-user">
                         <span className="link-icon">👋</span>

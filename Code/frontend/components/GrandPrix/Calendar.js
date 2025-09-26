@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { dataService } from '../../services/dataService';
 import PredictionModal from './PredictionModal';
+import OIPImage from '../../assets/R.png'; // Импортируем ту же картинку
 
 const Calendar = () => {
     const [grandPrix, setGrandPrix] = useState([]);
@@ -46,6 +47,14 @@ const Calendar = () => {
 
     return (
         <div className="calendar">
+            {/* Заголовок Calendar с картинкой - такой же как в Leaderboard */}
+            <div className="calendar-header">
+                <div className="calendar-title-section">
+                    <h2 className="calendar-title">Calendar</h2>
+                </div>
+                <img src={OIPImage} alt="Calendar" className="calendar-image" />
+            </div>
+
             {grandPrix.length === 0 ? (
                 <div className="no-data">
                     <p>No Grand Prix events available.</p>
