@@ -33,13 +33,12 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
+    // controller/AuthController.java - обновим метод register
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody LoginRequest request) {
-        // Генерируем username из email (все до символа @)
+        // Генерируем username из email
         String username = request.getEmail().split("@")[0];
 
         // Проверяем, не существует ли уже пользователь с таким username
-        // Если существует, добавляем цифру
         String finalUsername = username;
         int counter = 1;
         while (userService.existsByUsername(finalUsername)) {
@@ -60,6 +59,7 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(token, user));
     }
 
+    // И метод login тоже возвращает полного пользователя
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         authenticationManager.authenticate(
@@ -74,6 +74,5 @@ public class AuthController {
 
         return ResponseEntity.ok(new AuthResponse(token, user));
     }
-
 
 }

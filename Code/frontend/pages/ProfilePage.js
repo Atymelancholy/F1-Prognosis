@@ -1,12 +1,13 @@
+// pages/ProfilePage.js
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
+import AvatarUpload from '../components/Profile/AvatarUpload';
 import OIPImage from '../assets/R.png';
 
 const ProfilePage = () => {
-    const { user, isAuthenticated, loading } = useAuth();
+    const { user, setUser, isAuthenticated, loading } = useAuth(); // Добавьте setUser
 
-    // Дополнительная проверка на случай прямого доступа по URL
     if (loading) {
         return <div className="loading">Loading...</div>;
     }
@@ -14,6 +15,11 @@ const ProfilePage = () => {
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
+
+    // Функция для обновления пользователя после загрузки аватара
+    const handleAvatarChange = (updatedUser) => {
+        setUser(updatedUser); // Обновляем пользователя в контексте
+    };
 
     return (
         <div className="profile-page">
@@ -27,30 +33,48 @@ const ProfilePage = () => {
 
             <div className="profile-content">
                 <div className="profile-layout">
-                    {/* Левая часть - аватар и имя */}
+                    {/* Левая часть - аватар и загрузка */}
                     <div className="profile-left">
-                        <div className="avatar-circle">
-                            <div className="avatar-placeholder">
-                                {user?.username?.charAt(0)?.toUpperCase() || 'U'}
-                            </div>
+                        <div className="avatar-section">
+                            <AvatarUpload
+                                currentAvatar={user?.avatar}
+                                onAvatarChange={handleAvatarChange} // Передаем функцию
+                            />
                         </div>
-                        <div className="username">{user?.username || 'User'}</div>
+
+                        <div className="user-info">
+                            <div className="username">{user?.username || 'User'}</div>
+                            <div className="email">{user?.email}</div>
+                            <div className="role-badge">{user?.role}</div>
+                        </div>
                     </div>
 
                     {/* Правая часть - статистика */}
                     <div className="profile-right">
                         <div className="stats-container">
                             <div className="stat-box">
-                                <div className="stat-value">1,250</div>
-                                <div className="stat-label">Score</div>
+                                <div className="stat-value">{user?.totalScore || 0}</div>
+                                <div className="stat-label">Total Score</div>
                             </div>
                             <div className="stat-box">
-                                <div className="stat-value">42</div>
-                                <div className="stat-label">Victories</div>
+                                <div className="stat-value">{user?.predictionsMade || 0}</div>
+                                <div className="stat-label">Predictions Made</div>
                             </div>
                             <div className="stat-box">
-                                <div className="stat-value">156</div>
-                                <div className="stat-label">Total Participation</div>
+                                <div className="stat-value">{user?.predictionsWon || 0}</div>
+                                <div className="stat-label">Predictions Won</div>
+                            </div>
+                            <div className="stat-box">
+                                <div className="stat-value">{user?.correctPodiums || 0}</div>
+                                <div className="stat-label">Correct Podiums</div>
+                            </div>
+                            <div className="stat-box">
+                                <div className="stat-value">{user?.correctPolePositions || 0}</div>
+                                <div className="stat-label">Correct Pole Positions</div>
+                            </div>
+                            <div className="stat-box">
+                                <div className="stat-value">{user?.correctFastestLaps || 0}</div>
+                                <div className="stat-label">Correct Fastest Laps</div>
                             </div>
                         </div>
                     </div>

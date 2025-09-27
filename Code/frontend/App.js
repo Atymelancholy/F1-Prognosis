@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
@@ -7,7 +8,9 @@ import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import Leaderboard from './components/Leaderboard/Leaderboard';
 import ProfilePage from './pages/ProfilePage';
+import AdminResultsPage from './pages/AdminResultsPage';
 import ProtectedRoute from './components/Layout/ProtectedRoute';
+import AdminRoute from './components/Layout/AdminRoute';
 
 import './styles/App.css';
 
@@ -24,13 +27,21 @@ function App() {
                             <Route path="/" element={<HomePage />} />
                             <Route path="/leaderboard" element={<Leaderboard />} />
 
-                            {/* Защищенный маршрут для Profile */}
                             <Route
                                 path="/profile"
                                 element={
                                     <ProtectedRoute>
                                         <ProfilePage />
                                     </ProtectedRoute>
+                                }
+                            />
+
+                            <Route
+                                path="/admin/results"
+                                element={
+                                    <AdminRoute>
+                                        <AdminResultsPage />
+                                    </AdminRoute>
                                 }
                             />
 

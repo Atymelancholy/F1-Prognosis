@@ -1,22 +1,15 @@
+// components/Leaderboard/Leaderboard.js
 import React, { useState, useEffect } from 'react';
 import { dataService } from '../../services/dataService';
 import OIPImage from '../../assets/R.png';
 
 const Leaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
-    const [filteredLeaderboard, setFilteredLeaderboard] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showFilterModal, setShowFilterModal] = useState(false);
-    const [sortOrder, setSortOrder] = useState('desc'); // 'desc' или 'asc'
 
     useEffect(() => {
         loadLeaderboard();
     }, []);
-
-    useEffect(() => {
-        // При изменении исходных данных или порядка сортировки - применяем фильтр
-        sortLeaderboard();
-    }, [leaderboard, sortOrder]);
 
     const loadLeaderboard = async () => {
         try {
@@ -29,28 +22,19 @@ const Leaderboard = () => {
         }
     };
 
-    const sortLeaderboard = () => {
-        const sorted = [...leaderboard].sort((a, b) => {
-            if (sortOrder === 'desc') {
-                return b.totalScore - a.totalScore; // По убыванию
-            } else {
-                return a.totalScore - b.totalScore; // По возрастанию
-            }
-        });
-        setFilteredLeaderboard(sorted);
+    // Функция для получения инициалов пользователя
+    const getInitials = (username) => {
+        return username ? username.charAt(0).toUpperCase() : 'U';
     };
 
-    const handleFilterClick = () => {
-        setShowFilterModal(true);
-    };
-
-    const handleSortOrderChange = (order) => {
-        setSortOrder(order);
-        setShowFilterModal(false);
-    };
-
-    const closeModal = () => {
-        setShowFilterModal(false);
+    // Функция для получения цвета по умолчанию на основе имени
+    const getAvatarColor = (username) => {
+        const colors = [
+            '#e10600', '#ff6b6b', '#4ecdc4', '#45b7d1',
+            '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'
+        ];
+        const index = username ? username.charCodeAt(0) % colors.length : 0;
+        return colors[index];
     };
 
     if (loading) {
@@ -59,70 +43,50 @@ const Leaderboard = () => {
 
     return (
         <div className="leaderboard">
+            {/* Заголовок */}
             <div className="leaderboard-header">
                 <div className="leaderboard-title-section">
                     <h2 className="leaderboard-title">Leaderboard</h2>
-                    <button className="filter-btn" onClick={handleFilterClick}>
-                        <span className="filter-icon">⏷</span>
-                        Filter
-                    </button>
                 </div>
-                <img src={OIPImage} alt="Trophy" className="leaderboard-image" />
+                <img src={OIPImage} alt="Leaderboard" className="leaderboard-image" />
             </div>
 
-            {/* Строка с заголовками колонок */}
+            {/* Заголовки колонок */}
             <div className="columns-header">
-                <span className="column-profile">Profile</span>
-                <span className="column-name">Name</span>
-                <span className="column-score">Score</span>
+                <div className="column-profile">Profile</div>
+                <div className="column-name">Name</div>
+                <div className="column-score">Score</div>
             </div>
 
             {/* Данные таблицы */}
             <div className="leaderboard-data">
-                {filteredLeaderboard.map((user, index) => (
-                    <div key={user.username} className="data-row">
+                {leaderboard.map((user, index) => (
+                    <div key={user.id || index} className="data-row">
                         <div className="data-profile">
-                            <div className="avatar-placeholder">👤</div>
+                            {user.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt={user.username}
+                                    className="avatar-small"
+                                />
+                            ) : (
+                                <div
+                                    className="avatar-placeholder-small"
+                                    style={{ backgroundColor: getAvatarColor(user.username) }}
+                                >
+                                    {getInitials(user.username)}
+                                </div>
+                            )}
                         </div>
                         <div className="data-name">{user.username}</div>
-                        <div className="data-score">{user.totalScore}</div>
+                        <div className="data-score">{user.totalScore || 0}</div>
                     </div>
                 ))}
             </div>
 
-            {/* Модальное окно фильтра */}
-            {showFilterModal && (
-                <div className="modal-overlay" onClick={closeModal}>
-                    <div className="filter-modal" onClick={(e) => e.stopPropagation()}>
-                        <div className="modal-header">
-                            <h3>Sort by Score</h3>
-                            <button onClick={closeModal} className="modal-close">×</button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="filter-options">
-                                <button
-                                    className={`filter-option ${sortOrder === 'desc' ? 'active' : ''}`}
-                                    onClick={() => handleSortOrderChange('desc')}
-                                >
-                                    <span className="option-icon">⬇️</span>
-                                    <span className="option-text">
-                                        <strong>Descending</strong>
-                                        <span>Highest to Lowest</span>
-                                    </span>
-                                </button>
-                                <button
-                                    className={`filter-option ${sortOrder === 'asc' ? 'active' : ''}`}
-                                    onClick={() => handleSortOrderChange('asc')}
-                                >
-                                    <span className="option-icon">⬆️</span>
-                                    <span className="option-text">
-                                        <strong>Ascending</strong>
-                                        <span>Lowest to Highest</span>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            {leaderboard.length === 0 && (
+                <div className="no-data">
+                    <p>No leaderboard data available</p>
                 </div>
             )}
         </div>

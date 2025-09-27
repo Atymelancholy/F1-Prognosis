@@ -1,3 +1,4 @@
+// model/User.java - добавим поле avatar
 package com.f1prognosis.backend.model;
 
 import jakarta.persistence.*;
@@ -32,7 +33,6 @@ public class User {
     @Column(name = "total_score")
     private Integer totalScore = 0;
 
-    // Добавляем поля для статистики
     @Column(name = "predictions_made")
     private Integer predictionsMade = 0;
 
@@ -47,6 +47,10 @@ public class User {
 
     @Column(name = "correct_fastest_laps")
     private Integer correctFastestLaps = 0;
+
+    // НОВОЕ ПОЛЕ: аватар в формате base64
+    @Column(name = "avatar", columnDefinition = "TEXT")
+    private String avatar;
 
     public enum Role {
         USER, ADMIN

@@ -1,9 +1,10 @@
+// components/Layout/Sidebar.js
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = () => {
-    const { user, logout, isAuthenticated } = useAuth();
+    const { user, logout, isAuthenticated, isAdmin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -22,13 +23,18 @@ const Sidebar = () => {
 
     // Основные навигационные элементы для всех пользователей
     const publicNavItems = [
-        { path: '/leaderboard', label: 'Leaderboard' },
-        { path: '/', label: 'Calendar' }
+        { path: '/', label: 'Calendar', icon: '📅' },
+        { path: '/leaderboard', label: 'Leaderboard', icon: '🏆' }
     ];
 
-    // Навигационные элементы только для авторизованных пользователей
-    const privateNavItems = [
-        { path: '/profile', label: 'Profile' }
+    // Навигационные элементы только для обычных пользователей
+    const userNavItems = [
+        { path: '/profile', label: 'Profile', icon: '👤' }
+    ];
+
+    // Навигационные элементы для администратора
+    const adminNavItems = [
+        { path: '/admin/results', label: 'Manage Results', icon: '🏁' }
     ];
 
     return (
@@ -51,8 +57,20 @@ const Sidebar = () => {
                         </Link>
                     ))}
 
-                    {/* Приватные пункты меню (только для авторизованных) */}
-                    {isAuthenticated && privateNavItems.map((item) => (
+                    {/* Пункты меню для обычных пользователей */}
+                    {isAuthenticated && !isAdmin && userNavItems.map((item) => (
+                        <Link
+                            key={item.path}
+                            to={item.path}
+                            className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
+                        >
+                            <span className="link-icon">{item.icon}</span>
+                            <span className="link-text">{item.label}</span>
+                        </Link>
+                    ))}
+
+                    {/* Пункты меню для администратора */}
+                    {isAuthenticated && isAdmin && adminNavItems.map((item) => (
                         <Link
                             key={item.path}
                             to={item.path}
@@ -83,11 +101,12 @@ const Sidebar = () => {
                     )}
                 </div>
 
-                {/* Блок с приветствием (только для авторизованных) */}
+                {/* Блок с приветствием */}
                 {isAuthenticated && (
                     <div className="sidebar-user">
                         <span className="link-icon">👋</span>
                         Welcome, {user?.username || user?.email}
+                        {isAdmin && <span style={{color: '#e10600', marginLeft: '5px'}}>(Admin)</span>}
                     </div>
                 )}
             </div>

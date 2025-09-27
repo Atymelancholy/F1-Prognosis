@@ -1,3 +1,4 @@
+// contexts/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authService } from '../services/authService';
 
@@ -21,9 +22,15 @@ export const AuthProvider = ({ children }) => {
 
         if (token && userData) {
             setUser(userData);
+            console.log('User loaded from storage:', userData);
         }
         setLoading(false);
     }, []);
+
+    // Исправляем проверку роли - должна быть функцией
+    const isAdmin = () => {
+        return user?.role === 'ADMIN';
+    };
 
     const login = async (email, password) => {
         try {
@@ -31,8 +38,10 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(response));
             setUser(response);
+            console.log('Login successful, user role:', response.role);
             return { success: true };
         } catch (error) {
+            console.error('Login error:', error);
             return {
                 success: false,
                 error: error.response?.data?.message || error.response?.data?.error || 'Login failed'
@@ -60,12 +69,21 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    // Функция для обновления пользователя
+    const updateUser = (userData) => {
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+    };
+
     const value = {
         user,
+        setUser, // ✅ Добавляем setUser
+        updateUser, // ✅ И алиас для удобства
         login,
         register,
         logout,
         isAuthenticated: !!user,
+        isAdmin: isAdmin(), // Вызываем функцию
         loading
     };
 

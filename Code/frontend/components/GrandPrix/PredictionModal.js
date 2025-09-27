@@ -69,12 +69,13 @@ const PredictionModal = ({ grandPrix, onClose, onSave }) => {
 
     // Список пилотов F1 2024 (можно расширить)
     const drivers = [
-        'Max Verstappen', 'Sergio Perez', 'Lewis Hamilton', 'George Russell',
-        'Charles Leclerc', 'Carlos Sainz', 'Lando Norris', 'Oscar Piastri',
-        'Fernando Alonso', 'Lance Stroll', 'Pierre Gasly', 'Esteban Ocon',
-        'Alexander Albon', 'Logan Sargeant', 'Valtteri Bottas', 'Guanyu Zhou',
-        'Kevin Magnussen', 'Nico Hulkenberg', 'Yuki Tsunoda', 'Daniel Ricciardo'
+        'VERSTAPPEN', 'PEREZ', 'HAMILTON', 'RUSSELL',
+        'LECLERC', 'SAINZ', 'NORRIS', 'PIASTRI',
+        'ALONSO', 'STROLL', 'GASLY', 'OCON',
+        'ALBON', 'SARGEANT', 'BOTTAS', 'ZHOU',
+        'MAGNUSSEN', 'HULKENBERG', 'TSUNODA', 'RICCIARDO'
     ];
+
 
     if (!isAuthenticated) {
         return (
