@@ -74,4 +74,6 @@ public class AuthController {
 
         return ResponseEntity.ok(new AuthResponse(token, user));
     }
+
+
 }

@@ -39,6 +39,11 @@ public class DataInitializer implements CommandLineRunner {
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setRole(User.Role.ADMIN);
             admin.setTotalScore(0);
+            admin.setPredictionsMade(0);
+            admin.setPredictionsWon(0);
+            admin.setCorrectPodiums(0);
+            admin.setCorrectPolePositions(0);
+            admin.setCorrectFastestLaps(0);
             userRepository.save(admin);
 
             User testUser = new User();
@@ -47,6 +52,11 @@ public class DataInitializer implements CommandLineRunner {
             testUser.setPassword(passwordEncoder.encode("user123"));
             testUser.setRole(User.Role.USER);
             testUser.setTotalScore(0);
+            testUser.setPredictionsMade(0);
+            testUser.setPredictionsWon(0);
+            testUser.setCorrectPodiums(0);
+            testUser.setCorrectPolePositions(0);
+            testUser.setCorrectFastestLaps(0);
             userRepository.save(testUser);
 
             // Создаем несколько тестовых пользователей для рейтинга
@@ -58,11 +68,16 @@ public class DataInitializer implements CommandLineRunner {
                 user.setPassword(passwordEncoder.encode("password123"));
                 user.setRole(User.Role.USER);
                 user.setTotalScore(100 - i * 10); // Разные очки для теста рейтинга
+                user.setPredictionsMade(5);
+                user.setPredictionsWon(3);
+                user.setCorrectPodiums(2);
+                user.setCorrectPolePositions(1);
+                user.setCorrectFastestLaps(1);
                 userRepository.save(user);
             }
         }
 
-        // Создаем тестовые Гран-При
+        // Создаем тестовые Гран-При (оставляем без изменений)
         if (grandPrixRepository.count() == 0) {
             // Прошедшие гонки
             GrandPrix gp1 = new GrandPrix();

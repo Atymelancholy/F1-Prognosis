@@ -32,13 +32,24 @@ public class UserService {
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(role);
+
+        // Инициализируем все поля значениями по умолчанию
         user.setTotalScore(0);
+        user.setPredictionsMade(0);
+        user.setPredictionsWon(0);
+        user.setCorrectPodiums(0);
+        user.setCorrectPolePositions(0);
+        user.setCorrectFastestLaps(0);
 
         return userRepository.save(user);
     }
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public boolean existsByEmail(String email) {
@@ -59,7 +70,84 @@ public class UserService {
     public void updateUserScore(Long userId, Integer scoreToAdd) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setTotalScore(user.getTotalScore() + scoreToAdd);
+
+        // Защита от null
+        Integer currentScore = user.getTotalScore();
+        if (currentScore == null) {
+            currentScore = 0;
+        }
+
+        user.setTotalScore(currentScore + scoreToAdd);
         userRepository.save(user);
+    }
+
+    // Исправленные методы с защитой от null
+    public void incrementPredictionsMade(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Integer current = user.getPredictionsMade();
+        if (current == null) {
+            current = 0;
+        }
+        user.setPredictionsMade(current + 1);
+        userRepository.save(user);
+    }
+
+    public void incrementPredictionsWon(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Integer current = user.getPredictionsWon();
+        if (current == null) {
+            current = 0;
+        }
+        user.setPredictionsWon(current + 1);
+        userRepository.save(user);
+    }
+
+    public void incrementCorrectPodiums(Long userId, int count) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Integer current = user.getCorrectPodiums();
+        if (current == null) {
+            current = 0;
+        }
+        user.setCorrectPodiums(current + count);
+        userRepository.save(user);
+    }
+
+    public void incrementCorrectPolePositions(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Integer current = user.getCorrectPolePositions();
+        if (current == null) {
+            current = 0;
+        }
+        user.setCorrectPolePositions(current + 1);
+        userRepository.save(user);
+    }
+
+    public void incrementCorrectFastestLaps(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Integer current = user.getCorrectFastestLaps();
+        if (current == null) {
+            current = 0;
+        }
+        user.setCorrectFastestLaps(current + 1);
+        userRepository.save(user);
+    }
+
+    public User getUserStats(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public List<User> getAllUsersWithStats() {
+        return userRepository.findAll();
     }
 }

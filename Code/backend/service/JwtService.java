@@ -1,3 +1,4 @@
+// JwtService.java - ЗАМЕНИТЕ ВЕСЬ ФАЙЛ
 package com.f1prognosis.backend.service;
 
 import io.jsonwebtoken.*;
@@ -6,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +16,10 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // ФИКСИРОВАННЫЙ ключ вместо генерации
+    private static final String SECRET_STRING = "mySuperSecretKeyForF1PrognosisApplication2024SecureAndFixedKeyThatIsLongEnough";
+    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_STRING.getBytes(StandardCharsets.UTF_8));
+
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24 часа
 
     public String extractUsername(String token) {

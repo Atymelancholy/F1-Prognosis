@@ -4,6 +4,8 @@ import com.f1prognosis.backend.model.Prediction;
 import com.f1prognosis.backend.model.User;
 import com.f1prognosis.backend.model.GrandPrix;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -14,4 +16,7 @@ public interface PredictionRepository extends JpaRepository<Prediction, Long> {
     Optional<Prediction> findByUserAndGrandPrix(User user, GrandPrix grandPrix);
     List<Prediction> findByGrandPrix(GrandPrix grandPrix);
     List<Prediction> findByUser(User user);
+    // Добавьте этот метод в существующий PredictionRepository
+    @Query("SELECT p FROM Prediction p WHERE p.grandPrix.id = :grandPrixId")
+    List<Prediction> findByGrandPrixId(@Param("grandPrixId") Long grandPrixId);
 }

@@ -32,6 +32,22 @@ public class User {
     @Column(name = "total_score")
     private Integer totalScore = 0;
 
+    // Добавляем поля для статистики
+    @Column(name = "predictions_made")
+    private Integer predictionsMade = 0;
+
+    @Column(name = "predictions_won")
+    private Integer predictionsWon = 0;
+
+    @Column(name = "correct_podiums")
+    private Integer correctPodiums = 0;
+
+    @Column(name = "correct_pole_positions")
+    private Integer correctPolePositions = 0;
+
+    @Column(name = "correct_fastest_laps")
+    private Integer correctFastestLaps = 0;
+
     public enum Role {
         USER, ADMIN
     }
