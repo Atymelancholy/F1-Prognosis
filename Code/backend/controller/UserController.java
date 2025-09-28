@@ -49,9 +49,14 @@ public class UserController {
         }
     }
 
+
     private String convertToBase64(MultipartFile file) throws IOException {
         byte[] bytes = file.getBytes();
-        return Base64.getEncoder().encodeToString(bytes);
+        String base64 = Base64.getEncoder().encodeToString(bytes);
+
+        // ВАЖНО: Не добавляем data URL prefix, это вызывает проблемы!
+        // Браузер будет пытаться загрузить это как отдельный URL
+        return base64; // Возвращаем чистый base64 без префикса
     }
 
     // Удалить аватар текущего пользователя

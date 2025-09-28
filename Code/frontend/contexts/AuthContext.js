@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    // Исправляем проверку роли - должна быть функцией
     const isAdmin = () => {
         return user?.role === 'ADMIN';
     };
@@ -69,16 +68,20 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    // Функция для обновления пользователя
+    // ✅ ДОБАВЛЯЕМ ФУНКЦИЮ ДЛЯ ОБНОВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ
     const updateUser = (userData) => {
+        console.log('🔄 AuthContext: updating user', {
+            hasAvatar: !!userData.avatar,
+            avatarLength: userData.avatar ? userData.avatar.length : 0
+        });
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
     };
 
     const value = {
         user,
-        setUser, // ✅ Добавляем setUser
-        updateUser, // ✅ И алиас для удобства
+        setUser, // ✅ Должен быть в value
+        updateUser, // ✅ Добавляем в value
         login,
         register,
         logout,

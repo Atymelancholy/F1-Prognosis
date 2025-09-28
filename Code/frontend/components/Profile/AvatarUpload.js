@@ -1,41 +1,59 @@
-// AvatarUpload.js - обновите компонент
-import React, { useState, useRef } from 'react';
+// components/Profile/AvatarUpload.js
+import React, { useState, useRef, useEffect } from 'react';
 import { userService } from '../../services/userService';
 import { useAuth } from '../../contexts/AuthContext';
 
 const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
     const [selectedImage, setSelectedImage] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState(currentAvatar);
+    const [previewUrl, setPreviewUrl] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const fileInputRef = useRef(null);
-    const { user } = useAuth(); // Только для чтения
+    const { user } = useAuth();
+
+    // Функция для создания data URL из base64
+    const createDataUrl = (base64Data, mimeType = 'image/jpeg') => {
+        if (!base64Data) return '';
+        return `data:${mimeType};base64,${base64Data}`;
+    };
+
+    // Обновляем preview при изменении currentAvatar
+    useEffect(() => {
+        if (currentAvatar) {
+            // Если currentAvatar уже data URL, используем как есть
+            // Если это чистый base64, создаем data URL
+            const url = currentAvatar.startsWith('data:')
+                ? currentAvatar
+                : createDataUrl(currentAvatar);
+            setPreviewUrl(url);
+        } else {
+            setPreviewUrl('');
+        }
+    }, [currentAvatar]);
 
     const handleImageSelect = (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
-        // Проверяем размер файла (макс 2MB)
         if (file.size > 2 * 1024 * 1024) {
             setMessage('File size should be less than 2MB');
             return;
         }
 
-        // Проверяем тип файла
         if (!file.type.startsWith('image/')) {
             setMessage('Please select an image file');
             return;
         }
 
         setSelectedImage(file);
+        setMessage('');
 
-        // Создаем preview
+        // Временный preview из файла
         const reader = new FileReader();
         reader.onload = (e) => {
             setPreviewUrl(e.target.result);
         };
         reader.readAsDataURL(file);
-        setMessage('');
     };
 
     const handleUpload = async () => {
@@ -48,17 +66,17 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
             const formData = new FormData();
             formData.append('avatar', selectedImage);
 
-            console.log('📤 Sending FormData with file:', {
-                fileName: selectedImage.name,
-                fileSize: selectedImage.size,
-                fileType: selectedImage.type
-            });
-
+            console.log('📤 Starting avatar upload...');
             const response = await userService.updateAvatar(formData);
 
-            console.log('✅ Avatar update response:', response);
+            console.log('✅ Avatar upload response received');
 
-            // ВЫЗЫВАЕМ callback вместо setUser
+            // Создаем data URL для preview
+            if (response.avatar) {
+                const dataUrl = createDataUrl(response.avatar);
+                setPreviewUrl(dataUrl);
+            }
+
             if (onAvatarChange) {
                 onAvatarChange(response);
             }
@@ -73,6 +91,11 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
         } catch (error) {
             console.error('❌ Avatar upload error:', error);
             setMessage('Error uploading avatar: ' + (error.response?.data?.message || error.message));
+            // В случае ошибки возвращаем старый аватар
+            if (currentAvatar) {
+                const dataUrl = createDataUrl(currentAvatar);
+                setPreviewUrl(dataUrl);
+            }
         } finally {
             setLoading(false);
         }
@@ -83,16 +106,18 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
         setMessage('');
 
         try {
+            console.log('🗑️ Removing avatar...');
             const response = await userService.removeAvatar();
 
-            // ВЫЗЫВАЕМ callback вместо setUser
+            setPreviewUrl('');
+
             if (onAvatarChange) {
                 onAvatarChange(response);
             }
 
-            setPreviewUrl(null);
             setMessage('Avatar removed successfully!');
         } catch (error) {
+            console.error('❌ Avatar remove error:', error);
             setMessage('Error removing avatar: ' + error.message);
         } finally {
             setLoading(false);
@@ -107,7 +132,16 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
         <div className="avatar-upload">
             <div className="avatar-preview">
                 {previewUrl ? (
-                    <img src={previewUrl} alt="Profile Avatar" className="avatar-image" />
+                    <img
+                        src={previewUrl}
+                        alt="Avatar"
+                        className="avatar-image"
+                        onError={(e) => {
+                            console.error('Error loading avatar image');
+                            // Если ошибка загрузки, показываем placeholder
+                            setPreviewUrl('');
+                        }}
+                    />
                 ) : (
                     <div className="avatar-placeholder">
                         {user?.username?.charAt(0)?.toUpperCase() || 'U'}
@@ -124,30 +158,18 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
                     style={{ display: 'none' }}
                 />
 
-                <button
-                    onClick={triggerFileInput}
-                    className="btn btn-primary"
-                    disabled={loading}
-                >
+                <button onClick={triggerFileInput} className="btn btn-primary" disabled={loading}>
                     Choose Image
                 </button>
 
                 {selectedImage && (
-                    <button
-                        onClick={handleUpload}
-                        className="btn btn-success"
-                        disabled={loading}
-                    >
+                    <button onClick={handleUpload} className="btn btn-success" disabled={loading}>
                         {loading ? 'Uploading...' : 'Upload Avatar'}
                     </button>
                 )}
 
                 {previewUrl && !selectedImage && (
-                    <button
-                        onClick={handleRemove}
-                        className="btn btn-danger"
-                        disabled={loading}
-                    >
+                    <button onClick={handleRemove} className="btn btn-danger" disabled={loading}>
                         {loading ? 'Removing...' : 'Remove Avatar'}
                     </button>
                 )}

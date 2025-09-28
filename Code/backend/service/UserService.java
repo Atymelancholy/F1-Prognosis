@@ -151,9 +151,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // service/UserService.java - добавим новые методы
-    // service/UserService.java - упростим на время тестирования
-// service/UserService.java
+    // service/UserService.java
     public User updateUserAvatar(String email, String avatarData) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -161,13 +159,12 @@ public class UserService {
         System.out.println("=== UPDATING USER AVATAR ===");
         System.out.println("User: " + user.getUsername());
         System.out.println("Avatar data length: " + (avatarData != null ? avatarData.length() : 0));
-        System.out.println("Avatar data preview: " + (avatarData != null ? avatarData.substring(0, Math.min(100, avatarData.length())) : "null"));
 
+        // Сохраняем чистый base64 без data URL prefix
         user.setAvatar(avatarData);
         User savedUser = userRepository.save(user);
 
         System.out.println("✅ Avatar saved to database");
-        System.out.println("Saved user avatar length: " + (savedUser.getAvatar() != null ? savedUser.getAvatar().length() : 0));
 
         return savedUser;
     }

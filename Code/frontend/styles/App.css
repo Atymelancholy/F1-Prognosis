@@ -2496,3 +2496,44 @@ body {
 .avatar-placeholder {
     background: linear-gradient(135deg, #e10600, #ff6b6b);
 }
+/* Добавьте в App.css */
+.avatar-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 3px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Важно: сохраняет пропорции */
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.avatar-upload {
+    text-align: center;
+}
+
+.avatar-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
