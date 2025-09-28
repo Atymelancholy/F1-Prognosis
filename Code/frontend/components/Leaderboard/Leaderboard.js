@@ -14,6 +14,7 @@ const Leaderboard = () => {
     const loadLeaderboard = async () => {
         try {
             const data = await dataService.getLeaderboard();
+            console.log('Leaderboard with avatars:', data);
             setLeaderboard(data);
         } catch (error) {
             console.error('Error loading leaderboard:', error);
@@ -22,19 +23,43 @@ const Leaderboard = () => {
         }
     };
 
-    // Функция для получения инициалов пользователя
     const getInitials = (username) => {
         return username ? username.charAt(0).toUpperCase() : 'U';
     };
 
-    // Функция для получения цвета по умолчанию на основе имени
-    const getAvatarColor = (username) => {
-        const colors = [
-            '#e10600', '#ff6b6b', '#4ecdc4', '#45b7d1',
-            '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'
-        ];
-        const index = username ? username.charCodeAt(0) % colors.length : 0;
-        return colors[index];
+    // Функция для отображения аватара
+    const renderAvatar = (user) => {
+        console.log(`Rendering avatar for ${user.username}:`, {
+            hasAvatar: !!user.avatar,
+            avatarLength: user.avatar ? user.avatar.length : 0
+        });
+
+        if (user.avatar) {
+            // Создаем data URL - бэкенд возвращает чистый base64
+            const avatarUrl = `data:image/jpeg;base64,${user.avatar}`;
+
+            return (
+                <img
+                    src={avatarUrl}
+                    alt={user.username}
+                    className="avatar-small"
+                    onError={(e) => {
+                        console.error(`Failed to load avatar for ${user.username}`);
+                        e.target.style.display = 'none';
+                    }}
+                    onLoad={(e) => {
+                        console.log(`Successfully loaded avatar for ${user.username}`);
+                    }}
+                />
+            );
+        }
+
+        // Если аватара нет, показываем placeholder
+        return (
+            <div className="avatar-placeholder-small">
+                {getInitials(user.username)}
+            </div>
+        );
     };
 
     if (loading) {
@@ -43,7 +68,6 @@ const Leaderboard = () => {
 
     return (
         <div className="leaderboard">
-            {/* Заголовок */}
             <div className="leaderboard-header">
                 <div className="leaderboard-title-section">
                     <h2 className="leaderboard-title">Leaderboard</h2>
@@ -51,32 +75,17 @@ const Leaderboard = () => {
                 <img src={OIPImage} alt="Leaderboard" className="leaderboard-image" />
             </div>
 
-            {/* Заголовки колонок */}
             <div className="columns-header">
-                <div className="column-profile">Profile</div>
+                <div className="column-avatar">Profile</div>
                 <div className="column-name">Name</div>
                 <div className="column-score">Score</div>
             </div>
 
-            {/* Данные таблицы */}
             <div className="leaderboard-data">
                 {leaderboard.map((user, index) => (
                     <div key={user.id || index} className="data-row">
-                        <div className="data-profile">
-                            {user.avatar ? (
-                                <img
-                                    src={user.avatar}
-                                    alt={user.username}
-                                    className="avatar-small"
-                                />
-                            ) : (
-                                <div
-                                    className="avatar-placeholder-small"
-                                    style={{ backgroundColor: getAvatarColor(user.username) }}
-                                >
-                                    {getInitials(user.username)}
-                                </div>
-                            )}
+                        <div className="data-avatar">
+                            {renderAvatar(user)}
                         </div>
                         <div className="data-name">{user.username}</div>
                         <div className="data-score">{user.totalScore || 0}</div>

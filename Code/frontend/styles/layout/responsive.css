@@ -1,0 +1,290 @@
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    .main-content {
+        margin-left: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .App {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .main-content {
+        margin-left: 0;
+        min-height: auto;
+    }
+
+    .sidebar-container {
+        padding: 20px 0;
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+        padding: 0 15px;
+    }
+
+    .sidebar-link {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        transform: none !important;
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .sidebar-link::before {
+        left: 15px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .sidebar-auth {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .sidebar-user {
+        text-align: left;
+        padding: 0;
+        margin: 0;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .gp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    /* Responsive для Leaderboard */
+    .leaderboard h2 {
+        text-align: center;
+        font-size: 1.8rem;
+    }
+
+    .leaderboard-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 15px;
+        align-items: center;
+    }
+
+    .leaderboard-title-section {
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 15px;
+    }
+
+    .leaderboard-title {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 0;
+    }
+
+    .filter-btn {
+        height: 45px;
+        font-size: 1rem;
+        min-width: 90px;
+        margin-top: 0;
+    }
+
+    .leaderboard-image {
+        margin-top: 0;
+        width: 96px;
+        height: 96px;
+    }
+
+    /* Calendar responsive */
+    .calendar-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 15px;
+        align-items: center;
+    }
+
+    .calendar-title-section {
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 15px;
+        height: 50px;
+    }
+
+    .calendar-title {
+        font-size: 1.8rem;
+        height: 50px;
+        margin: 20px 0 0 0;
+        text-align: center;
+    }
+
+    .calendar-image {
+        margin-top: 0;
+        width: 96px;
+        height: 96px;
+    }
+
+    /* Admin responsive */
+    .admin-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .admin-results-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .admin-results-title-section {
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+    }
+
+    .admin-results-title {
+        margin: 20px 0 0 0;
+        height: auto;
+        text-align: center;
+    }
+
+    .admin-results-image {
+        margin-top: 0;
+        width: 96px;
+        height: 96px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    /* Avatar responsive */
+    .avatar-image,
+    .avatar-placeholder {
+        width: 120px;
+        height: 120px;
+    }
+
+    .avatar-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .avatar-actions .btn {
+        width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-menu {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .sidebar-auth {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .sidebar-user {
+        text-align: center;
+    }
+
+    .auth-form {
+        padding: 2rem 1.5rem;
+    }
+
+    .home-page h1 {
+        font-size: 2rem;
+    }
+
+    .leaderboard h2 {
+        font-size: 1.6rem;
+    }
+
+    .modal-header {
+        padding: 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .leaderboard-title {
+        font-size: 1.6rem;
+    }
+
+    .leaderboard-image {
+        width: 84px;
+        height: 84px;
+    }
+
+    .filter-btn {
+        height: 40px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        min-width: 80px;
+    }
+
+    .leaderboard-title-section {
+        gap: 15px;
+    }
+
+    .calendar-title {
+        font-size: 1.6rem;
+        height: 45px;
+        margin: 15px 0 0 0;
+    }
+
+    .calendar-title-section {
+        height: 45px;
+    }
+
+    .calendar-image {
+        width: 84px;
+        height: 84px;
+    }
+
+    .avatar-image,
+    .avatar-placeholder {
+        width: 100px;
+        height: 100px;
+    }
+
+    .avatar-actions .btn {
+        width: 180px;
+    }
+}

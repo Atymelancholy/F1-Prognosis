@@ -1,0 +1,231 @@
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal {
+    background: var(--white);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-bottom: 1px solid var(--border-light);
+    background-color: #f8f9fa;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.3rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-light);
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.modal-close:hover {
+    background-color: #eee;
+    color: var(--text-color);
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.prediction-form {
+    display: grid;
+    gap: 20px;
+}
+
+.prediction-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.prediction-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(225, 6, 0, 0.1);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+/* Filter Modal Styles */
+.filter-modal {
+    background: var(--white);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.filter-option:hover {
+    border-color: #ccc;
+    background-color: #f9f9f9;
+}
+
+.filter-option.active {
+    border-color: var(--primary-color);
+    background-color: #fff5f5;
+}
+
+.option-icon {
+    font-size: 1.5rem;
+    margin-right: 12px;
+    width: 30px;
+    text-align: center;
+}
+
+.option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.option-text strong {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.option-text span {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.filter-option.active .option-text strong {
+    color: var(--primary-color);
+}
+
+/* Fullscreen Modal */
+.fullscreen-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    padding: 20px;
+}
+
+.fullscreen-modal-content {
+    background: var(--white);
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-message {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+/* Modal Scrollbar */
+.modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Animation */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-overlay {
+    animation: modalFadeIn 0.3s ease;
+}
+
+.filter-modal {
+    animation: modalFadeIn 0.3s ease;
+}

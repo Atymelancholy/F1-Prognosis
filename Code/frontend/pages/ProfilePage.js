@@ -5,31 +5,20 @@ import { Navigate } from 'react-router-dom';
 import AvatarUpload from '../components/Profile/AvatarUpload';
 import { userService } from '../services/userService';
 import OIPImage from '../assets/R.png';
+import Formula1Image from '../assets/formula_1.png'; // Добавляем импорт
 
 const ProfilePage = () => {
-    const { user, updateUser, isAuthenticated, loading } = useAuth(); // Используем updateUser вместо setUser
+    const { user, updateUser, isAuthenticated, loading } = useAuth();
     const [profileData, setProfileData] = useState(null);
+    const [showAvatarUpload, setShowAvatarUpload] = useState(false);
 
-    useEffect(() => {
-        console.log('👤 ProfilePage: user context changed', {
-            hasUser: !!user,
-            userAvatar: user?.avatar ? 'has avatar' : 'no avatar'
-        });
-    }, [user]);
-
-    // Загружаем полные данные профиля при входе
     useEffect(() => {
         const loadProfileData = async () => {
             if (isAuthenticated && user) {
                 try {
-                    console.log('📥 Loading profile data...');
                     const userData = await userService.getProfile();
-                    console.log('✅ Profile data loaded:', {
-                        hasAvatar: !!userData.avatar,
-                        avatarLength: userData.avatar ? userData.avatar.length : 0
-                    });
                     setProfileData(userData);
-                    updateUser(userData); // Обновляем контекст
+                    updateUser(userData);
                 } catch (error) {
                     console.error('❌ Error loading profile:', error);
                     setProfileData(user);
@@ -49,21 +38,16 @@ const ProfilePage = () => {
     }
 
     const handleAvatarChange = (updatedUser) => {
-        console.log('🔄 ProfilePage: handleAvatarChange called', {
-            hasUpdatedAvatar: !!updatedUser.avatar,
-            updatedAvatarLength: updatedUser.avatar ? updatedUser.avatar.length : 0
-        });
-        updateUser(updatedUser); // Используем updateUser
+        updateUser(updatedUser);
         setProfileData(updatedUser);
+        setShowAvatarUpload(false);
     };
 
-    // Используем profileData если есть, иначе user из контекста
-    const displayUser = profileData || user;
+    const handleAvatarClick = () => {
+        setShowAvatarUpload(!showAvatarUpload);
+    };
 
-    console.log('🎨 ProfilePage render:', {
-        displayUserAvatar: displayUser?.avatar ? 'has avatar' : 'no avatar',
-        displayUser: displayUser?.username
-    });
+    const displayUser = profileData || user;
 
     return (
         <div className="profile-page">
@@ -76,48 +60,45 @@ const ProfilePage = () => {
 
             <div className="profile-content">
                 <div className="profile-layout">
+                    {/* Левая часть - аватар и имя */}
                     <div className="profile-left">
                         <div className="avatar-section">
-                            <AvatarUpload
-                                currentAvatar={displayUser?.avatar}
-                                onAvatarChange={handleAvatarChange}
-                            />
-                        </div>
-
-                        <div className="user-info">
-                            <div className="username">{displayUser?.username || 'User'}</div>
-                            <div className="email">{displayUser?.email}</div>
-                            <div className="role-badge">{displayUser?.role}</div>
+                            <div className="avatar-container" onClick={handleAvatarClick}>
+                                <AvatarUpload
+                                    currentAvatar={displayUser?.avatar}
+                                    onAvatarChange={handleAvatarChange}
+                                    showControls={showAvatarUpload}
+                                />
+                            </div>
+                            <div className="username-under-avatar">
+                                {displayUser?.username || 'User'}
+                            </div>
                         </div>
                     </div>
 
-                    <div className="profile-right">
-                        <div className="stats-container">
-                            <div className="stat-box">
-                                <div className="stat-value">{displayUser?.totalScore || 0}</div>
-                                <div className="stat-label">Total Score</div>
-                            </div>
-                            <div className="stat-box">
-                                <div className="stat-value">{displayUser?.predictionsMade || 0}</div>
-                                <div className="stat-label">Predictions Made</div>
-                            </div>
-                            <div className="stat-box">
-                                <div className="stat-value">{displayUser?.predictionsWon || 0}</div>
-                                <div className="stat-label">Predictions Won</div>
-                            </div>
-                            <div className="stat-box">
-                                <div className="stat-value">{displayUser?.correctPodiums || 0}</div>
-                                <div className="stat-label">Correct Podiums</div>
-                            </div>
-                            <div className="stat-box">
-                                <div className="stat-value">{displayUser?.correctPolePositions || 0}</div>
-                                <div className="stat-label">Correct Pole Positions</div>
-                            </div>
-                            <div className="stat-box">
-                                <div className="stat-value">{displayUser?.correctFastestLaps || 0}</div>
-                                <div className="stat-label">Correct Fastest Laps</div>
-                            </div>
+                    {/* Центральная часть - три прямоугольника */}
+                    <div className="profile-stats">
+                        <div className="stat-box">
+                            <div className="stat-label">Score</div>
+                            <div className="stat-value">{displayUser?.totalScore || 0}</div>
                         </div>
+                        <div className="stat-box">
+                            <div className="stat-label">Victories</div>
+                            <div className="stat-value">{displayUser?.predictionsWon || 0}</div>
+                        </div>
+                        <div className="stat-box">
+                            <div className="stat-label">Total Participation</div>
+                            <div className="stat-value">{displayUser?.predictionsMade || 0}</div>
+                        </div>
+                    </div>
+
+                    {/* Правая часть - картинка Formula 1 */}
+                    <div className="profile-image-section">
+                        <img
+                            src={Formula1Image}
+                            alt="Formula 1"
+                            className="formula1-image"
+                        />
                     </div>
                 </div>
             </div>

@@ -1,0 +1,234 @@
+/* Admin Results Page Styles */
+.admin-results-page {
+    padding: 0;
+}
+
+.admin-results-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.admin-results-title-section {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-top: 0;
+    height: 60px;
+}
+
+.admin-results-title {
+    color: #000;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+    padding: 0;
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+.admin-results-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-top: 30px;
+    margin-right: 16px;
+}
+
+.admin-results-content {
+    padding: 0 20px;
+}
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-global-actions {
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.gp-list-section h3,
+.results-form-section h3 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.gp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gp-item {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gp-item:hover {
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+
+.gp-item.active {
+    border-color: var(--primary-color);
+    background-color: #fff5f5;
+}
+
+.gp-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.gp-round {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.gp-status {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    display: inline-block;
+    color: white;
+}
+
+.gp-status.open { background-color: #4caf50; }
+.gp-status.closed { background-color: #f44336; }
+.gp-status.completed { background-color: #2196f3; }
+.gp-status.awaiting { background-color: #ff9800; }
+
+.results-form {
+    background: var(--white);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.results-form .form-group {
+    margin-bottom: 20px;
+}
+
+.results-form .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.results-form .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    background: var(--white);
+}
+
+.results-form .form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(225, 6, 0, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
+}
+
+.existing-results-info {
+    background-color: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.message {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.no-selection {
+    text-align: center;
+    padding: 60px;
+    background: var(--white);
+    border-radius: var(--radius);
+    color: var(--text-light);
+}
+
+.admin-error {
+    text-align: center;
+    padding: 40px;
+    background: var(--white);
+    border-radius: var(--radius);
+    margin: 20px;
+    border: 2px solid #dc3545;
+}
+
+.admin-error h2 {
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+.user-role {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-left: 15px;
+    font-style: italic;
+}
+
+.gp-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-light);
+}

@@ -1,0 +1,450 @@
+/* Leaderboard Styles */
+.leaderboard {
+    padding: 0;
+}
+
+.leaderboard-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.leaderboard-title-section {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-top: 30px;
+    height: 60px;
+}
+
+.leaderboard-title {
+    color: #000;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+    padding: 0;
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+}
+
+.leaderboard-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-top: 30px;
+    margin-right: 16px;
+}
+
+/* Leaderboard Title Styles */
+.leaderboard h2 {
+    color: #000;
+    text-align: left;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    padding-left: 20px;
+    margin-top: 35px;
+    padding-top: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Filter Button */
+.filter-btn {
+    background: none;
+    border: 1px solid #ccc;
+    color: #666;
+    padding: 12px 20px 12px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    gap: 8px;
+}
+
+.filter-icon {
+    font-size: 1.2rem;
+    margin-right: 4px;
+}
+
+.filter-btn:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+    color: #333;
+}
+
+.filter-btn:active {
+    background-color: #e0e0e0;
+    transform: translateY(1px);
+}
+
+/* Строка с заголовками колонок */
+.columns-header {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 15px 100px;
+    margin-bottom: 10px;
+    border-bottom: none;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+/* Линия под заголовками колонок */
+.columns-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 20px;
+    height: 1px;
+    background-color: #e0e0e0;
+}
+
+.column-profile {
+    width: 120px;
+    text-align: center;
+}
+
+.column-name {
+    width: 400px;
+    padding-left: 60px;
+}
+
+.column-score {
+    width: 120px;
+    text-align: right;
+}
+
+/* Данные таблицы */
+.leaderboard-data {
+    background: transparent;
+}
+
+.data-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px 12px 100px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    border-bottom: none;
+}
+
+/* Линии между строками */
+.data-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 20px;
+    height: 1px;
+    background-color: #eee;
+}
+
+.data-row:last-child::after {
+    display: none;
+}
+
+.data-row:hover {
+    background-color: #f8f9fa;
+}
+
+.data-profile {
+    width: 120px;
+    text-align: center;
+}
+
+.data-name {
+    width: 400px;
+    padding-left: 60px;
+    font-weight: 500;
+}
+
+.data-score {
+    width: 120px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Avatar Styles */
+.avatar-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e0e0e0;
+}
+
+.avatar-placeholder-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+    font-size: 0.9rem;
+    border: 2px solid #e0e0e0;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #e10600, #ff6b6b);
+}
+
+.avatar-placeholder {
+    background: linear-gradient(135deg, #e10600, #ff6b6b);
+}
+/* styles/components/leaderboard.css - ПОЛНЫЙ ФАЙЛ */
+.leaderboard {
+    padding: 0;
+}
+
+.leaderboard-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.leaderboard-title-section {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-top: 30px;
+    height: 60px;
+}
+
+.leaderboard-title {
+    color: #000;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+    padding: 0;
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+}
+
+.leaderboard-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-top: 30px;
+    margin-right: 16px;
+}
+
+/* Заголовки колонок */
+.columns-header {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 15px 100px;
+    margin-bottom: 10px;
+    border-bottom: none;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.columns-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 20px;
+    height: 1px;
+    background-color: #e0e0e0;
+}
+
+.column-avatar {
+    width: 120px;
+    text-align: center;
+}
+
+.column-name {
+    width: 400px;
+    padding-left: 60px;
+}
+
+.column-score {
+    width: 120px;
+    text-align: right;
+}
+
+/* Данные таблицы */
+.leaderboard-data {
+    background: transparent;
+}
+
+.data-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px 12px 100px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    border-bottom: none;
+}
+
+.data-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 20px;
+    height: 1px;
+    background-color: #eee;
+}
+
+.data-row:last-child::after {
+    display: none;
+}
+
+.data-row:hover {
+    background-color: #f8f9fa;
+}
+
+.data-avatar {
+    width: 120px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.data-name {
+    width: 400px;
+    padding-left: 60px;
+    font-weight: 500;
+}
+
+.data-score {
+    width: 120px;
+    text-align: right;
+    font-weight: 600;
+    color: #e10600;
+}
+
+/* Avatar Styles */
+.avatar-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e0e0e0;
+    display: block;
+}
+
+.avatar-placeholder-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+    font-size: 1rem;
+    background: #e10600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .columns-header {
+        padding: 0 15px 10px 60px;
+    }
+
+    .columns-header::after {
+        left: 60px;
+        right: 15px;
+    }
+
+    .data-row {
+        padding: 10px 15px 10px 60px;
+    }
+
+    .data-row::after {
+        left: 60px;
+        right: 15px;
+    }
+
+    .column-avatar,
+    .data-avatar {
+        width: 100px;
+    }
+
+    .avatar-small,
+    .avatar-placeholder-small {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .column-name,
+    .data-name {
+        width: 300px;
+        padding-left: 40px;
+        font-size: 0.9rem;
+    }
+
+    .column-score,
+    .data-score {
+        width: 100px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .columns-header {
+        padding: 0 10px 8px 40px;
+        font-size: 0.9rem;
+    }
+
+    .columns-header::after {
+        left: 40px;
+        right: 10px;
+    }
+
+    .data-row {
+        padding: 8px 10px 8px 40px;
+    }
+
+    .data-row::after {
+        left: 40px;
+        right: 10px;
+    }
+
+    .column-avatar,
+    .data-avatar {
+        width: 80px;
+    }
+
+    .avatar-small,
+    .avatar-placeholder-small {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .column-name,
+    .data-name {
+        width: 200px;
+        padding-left: 30px;
+        font-size: 0.8rem;
+    }
+
+    .column-score,
+    .data-score {
+        width: 80px;
+        font-size: 0.8rem;
+    }
+}

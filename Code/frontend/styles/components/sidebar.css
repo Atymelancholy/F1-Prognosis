@@ -1,0 +1,202 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 280px;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.sidebar-container {
+    padding: 30px 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+    color: #000;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+    padding: 30px 25px 25px;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 25px;
+    cursor: default;
+    pointer-events: none;
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+/* Sidebar Menu Items */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 15px;
+    flex: 1;
+}
+
+.sidebar-link {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 14px 16px 14px 35px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+    background-color: transparent;
+    position: relative;
+    border: none;
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    text-align: left;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Circle indicator */
+.sidebar-link::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Hover effects */
+.sidebar-link:hover {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+    transform: translateX(3px);
+    border-color: #e0e0e0;
+}
+
+/* Active state */
+.sidebar-link.active {
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+    font-weight: 600;
+    border-left: 3px solid var(--primary-color);
+}
+
+.sidebar-link.active::before {
+    background-color: var(--primary-color);
+}
+
+.sidebar-link.active:hover {
+    background-color: #e8e8e8;
+    border-color: #d0d0d0;
+}
+
+.sidebar-link:not(.active):hover::before {
+    background-color: #999;
+}
+
+/* Special styles for Sign Out button */
+.sidebar-signout::before {
+    background-color: #ff6b6b;
+}
+
+.sidebar-signout:hover::before {
+    background-color: #ff5252;
+}
+
+/* Special styles for Sign In button */
+.sidebar-signin::before {
+    background-color: #4ecdc4;
+}
+
+.sidebar-signin:hover::before {
+    background-color: #26a69a;
+}
+
+.sidebar-signin.active::before {
+    background-color: var(--primary-color);
+}
+
+/* Icon and Text */
+.sidebar-link .link-icon {
+    font-size: 1.2rem;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-link:hover .link-icon {
+    transform: scale(1.1);
+}
+
+.sidebar-link .link-text {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+/* User Welcome Section */
+.sidebar-user {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    padding: 15px;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid var(--border-light);
+    margin-top: 10px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    margin: 15px;
+}
+
+/* Focus states */
+.sidebar-link:focus {
+    outline: none;
+    border-color: #ddd;
+    background-color: #f8f8f8;
+}
+
+/* Active state for clicks */
+.sidebar-link:active {
+    transform: scale(0.98) translateX(2px);
+    background-color: #e8e8e8;
+}
+
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

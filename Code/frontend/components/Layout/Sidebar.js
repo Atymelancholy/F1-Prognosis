@@ -104,8 +104,6 @@ const Sidebar = () => {
                 {/* Блок с приветствием */}
                 {isAuthenticated && (
                     <div className="sidebar-user">
-                        <span className="link-icon">👋</span>
-                        Welcome, {user?.username || user?.email}
                         {isAdmin && <span style={{color: '#e10600', marginLeft: '5px'}}>(Admin)</span>}
                     </div>
                 )}

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { userService } from '../../services/userService';
 import { useAuth } from '../../contexts/AuthContext';
 
-const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
+const AvatarUpload = ({ currentAvatar, onAvatarChange, showControls = false }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
     const [loading, setLoading] = useState(false);
@@ -20,8 +20,6 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
     // Обновляем preview при изменении currentAvatar
     useEffect(() => {
         if (currentAvatar) {
-            // Если currentAvatar уже data URL, используем как есть
-            // Если это чистый base64, создаем data URL
             const url = currentAvatar.startsWith('data:')
                 ? currentAvatar
                 : createDataUrl(currentAvatar);
@@ -66,10 +64,7 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
             const formData = new FormData();
             formData.append('avatar', selectedImage);
 
-            console.log('📤 Starting avatar upload...');
             const response = await userService.updateAvatar(formData);
-
-            console.log('✅ Avatar upload response received');
 
             // Создаем data URL для preview
             if (response.avatar) {
@@ -106,7 +101,6 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
         setMessage('');
 
         try {
-            console.log('🗑️ Removing avatar...');
             const response = await userService.removeAvatar();
 
             setPreviewUrl('');
@@ -130,7 +124,7 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
 
     return (
         <div className="avatar-upload">
-            <div className="avatar-preview">
+            <div className="avatar-preview" onClick={triggerFileInput}>
                 {previewUrl ? (
                     <img
                         src={previewUrl}
@@ -138,7 +132,6 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
                         className="avatar-image"
                         onError={(e) => {
                             console.error('Error loading avatar image');
-                            // Если ошибка загрузки, показываем placeholder
                             setPreviewUrl('');
                         }}
                     />
@@ -149,48 +142,53 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange }) => {
                 )}
             </div>
 
-            <div className="avatar-actions">
-                <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleImageSelect}
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                />
+            {/* Скрытый input для выбора файла */}
+            <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleImageSelect}
+                accept="image/*"
+                style={{ display: 'none' }}
+            />
 
-                <button onClick={triggerFileInput} className="btn btn-primary" disabled={loading}>
-                    Choose Image
-                </button>
+            {/* Показываем кнопки только когда showControls = true */}
+            {showControls && (
+                <div className="avatar-controls">
+                    {selectedImage ? (
+                        <div className="avatar-actions">
+                            <button onClick={handleUpload} className="btn btn-success" disabled={loading}>
+                                {loading ? 'Uploading...' : 'Upload Avatar'}
+                            </button>
+                            <button onClick={() => setSelectedImage(null)} className="btn btn-secondary">
+                                Cancel
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="avatar-actions">
+                            <button onClick={triggerFileInput} className="btn btn-primary">
+                                Change Image
+                            </button>
+                            {previewUrl && (
+                                <button onClick={handleRemove} className="btn btn-danger" disabled={loading}>
+                                    {loading ? 'Removing...' : 'Remove Avatar'}
+                                </button>
+                            )}
+                        </div>
+                    )}
 
-                {selectedImage && (
-                    <button onClick={handleUpload} className="btn btn-success" disabled={loading}>
-                        {loading ? 'Uploading...' : 'Upload Avatar'}
-                    </button>
-                )}
+                    {selectedImage && (
+                        <div className="file-info">
+                            Selected: {selectedImage.name} ({(selectedImage.size / 1024).toFixed(1)} KB)
+                        </div>
+                    )}
 
-                {previewUrl && !selectedImage && (
-                    <button onClick={handleRemove} className="btn btn-danger" disabled={loading}>
-                        {loading ? 'Removing...' : 'Remove Avatar'}
-                    </button>
-                )}
-            </div>
-
-            {selectedImage && (
-                <div className="file-info">
-                    Selected: {selectedImage.name} ({(selectedImage.size / 1024).toFixed(1)} KB)
+                    {message && (
+                        <div className={`message ${message.includes('Error') ? 'error' : 'success'}`}>
+                            {message}
+                        </div>
+                    )}
                 </div>
             )}
-
-            {message && (
-                <div className={`message ${message.includes('Error') ? 'error' : 'success'}`}>
-                    {message}
-                </div>
-            )}
-
-            <div className="upload-help">
-                <p>Supported formats: JPEG, PNG, GIF</p>
-                <p>Max file size: 2MB</p>
-            </div>
         </div>
     );
 };

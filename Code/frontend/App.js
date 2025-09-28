@@ -12,7 +12,8 @@ import AdminResultsPage from './pages/AdminResultsPage';
 import ProtectedRoute from './components/Layout/ProtectedRoute';
 import AdminRoute from './components/Layout/AdminRoute';
 
-import './styles/App.css';
+// App.js
+import './styles/index.css'; // Импортируем главный CSS файл
 
 function App() {
     return (

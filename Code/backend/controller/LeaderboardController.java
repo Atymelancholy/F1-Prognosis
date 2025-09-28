@@ -21,8 +21,20 @@ public class LeaderboardController {
     @GetMapping
     public ResponseEntity<List<UserScoreDto>> getLeaderboard() {
         List<UserScoreDto> leaderboard = userService.getTopUsers(20).stream()
-                .map(user -> new UserScoreDto(user.getUsername(), user.getTotalScore()))
+                .map(user -> new UserScoreDto(
+                        user.getUsername(),
+                        user.getTotalScore(),
+                        user.getAvatar() // ДОБАВЛЯЕМ АВАТАР
+                ))
                 .toList();
+
+        // Для отладки
+        System.out.println("=== LEADERBOARD WITH AVATARS ===");
+        leaderboard.forEach(dto -> {
+            System.out.println("User: " + dto.getUsername() +
+                    ", Avatar: " + (dto.getAvatar() != null ? "EXISTS" : "NULL"));
+        });
+
         return ResponseEntity.ok(leaderboard);
     }
 }
