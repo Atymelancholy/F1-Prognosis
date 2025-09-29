@@ -1,0 +1,4 @@
+# Диаграммы последовательностей
+
+
+![photo_2025-09-29_19-34-20](https://github.com/user-attachments/assets/16f8bf32-d458-405c-84a0-f01d045f7cc2)
