@@ -12,7 +12,9 @@
 ![photo_2025-09-29_19-52-27](https://github.com/user-attachments/assets/6ef6528c-53a3-418b-9b5e-39dd0e1f38d4)
 
 ## 3 Внесение результатов Гран-при
-![Uploading Untitled (7).png…]()
+![photo_2025-09-29_22-17-32](https://github.com/user-attachments/assets/c946d06b-160a-46dc-a817-dbc12c22a297)
+
+
 
 
 
