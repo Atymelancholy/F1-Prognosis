@@ -9,4 +9,7 @@
 ![photo_2025-09-29_19-34-20](https://github.com/user-attachments/assets/16f8bf32-d458-405c-84a0-f01d045f7cc2)
 
 ## 2 Создать или отредактировать прогноз
+![photo_2025-09-29_19-50-42](https://github.com/user-attachments/assets/7f26a48f-7cb6-4d57-937f-fd77dacce3de)
+
+
 
