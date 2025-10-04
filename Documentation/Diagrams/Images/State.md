@@ -1,0 +1,16 @@
+# Диаграммы последовательностей
+## Содержание
+
+- [1 Вход в учётную запись](#1-Вход-в-учётную-запись)
+- [2 Создать или отредактировать прогноз](#2-Создать-или-отредактировать-прогноз)
+- [3 Внесение результатов Гран-при](#3-Внесение-результатов-Гран-при)
+
+## 1 Вход в учётную запись
+<img width="703" height="1041" alt="Untitled (10)" src="https://github.com/user-attachments/assets/435e70af-a07c-4882-8a76-ef5779302c2b" />
+
+## 2 Создать или отредактировать прогноз
+<img width="892" height="947" alt="Untitled (11)" src="https://github.com/user-attachments/assets/22fcfe05-17ba-4d0e-a4c1-ad023d20da0f" />
+
+## 3 Внесение результатов Гран-при
+<img width="864" height="999" alt="Untitled (12)" src="https://github.com/user-attachments/assets/c0a5a968-2a5a-47ab-acf2-c60198f9f91f" />
+
