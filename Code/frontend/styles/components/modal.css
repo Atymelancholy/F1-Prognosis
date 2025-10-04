@@ -1,4 +1,3 @@
-/* Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -91,7 +90,6 @@
     margin-top: 25px;
 }
 
-/* Filter Modal Styles */
 .filter-modal {
     background: var(--white);
     border-radius: var(--radius);
@@ -159,7 +157,6 @@
     color: var(--primary-color);
 }
 
-/* Fullscreen Modal */
 .fullscreen-modal-overlay {
     position: fixed;
     top: 0;
@@ -191,7 +188,6 @@
     color: var(--text-color);
 }
 
-/* Modal Scrollbar */
 .modal::-webkit-scrollbar {
     width: 8px;
 }
@@ -210,7 +206,6 @@
     background: #a8a8a8;
 }
 
-/* Animation */
 @keyframes modalFadeIn {
     from {
         opacity: 0;

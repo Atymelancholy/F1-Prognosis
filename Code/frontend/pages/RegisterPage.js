@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import Formula1Background from '../assets/Formula1.png';
+import '../styles/pages/login-page.css';
 
 const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -40,54 +42,79 @@ const RegisterPage = () => {
         }
     };
 
+    const handleLoginRedirect = () => {
+        navigate('/login');
+    };
+
     return (
-        <div className="auth-container">
-            <form onSubmit={handleSubmit} className="auth-form">
-                <h2>Create Account</h2>
+        <div className="login-page">
+            {/* Фоновое изображение Formula1.png */}
+            <div
+                className="background-image"
+                style={{ backgroundImage: `url(${Formula1Background})` }}
+            />
 
-                {error && <div className="error-message">{error}</div>}
+            <div className="login-content">
+                <div className="login-form-container">
+                    <div className="login-header">
+                        <h1 className="login-title">F1 Prognosis</h1>
+                        <p className="login-subtitle">Create an account</p>
+                        <p className="login-instruction">Enter your details to sign up</p>
+                    </div>
 
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                    {error && <div className="error-message">{error}</div>}
+
+                    <form onSubmit={handleSubmit} className="login-form">
+                        <div className="form-group">
+                            <input
+                                type="email"
+                                placeholder="Email address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-actions">
+                            <button
+                                type="submit"
+                                className="btn btn-signup"
+                                disabled={loading}
+                            >
+                                {loading ? 'Creating Account...' : 'Sign up with email'}
+                            </button>
+
+                            <button
+                                type="button"
+                                className="btn btn-login"
+                                onClick={handleLoginRedirect}
+                            >
+                                Log in
+                            </button>
+                        </div>
+                    </form>
                 </div>
-
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <button type="submit" className="btn btn-block" disabled={loading}>
-                    {loading ? 'Creating Account...' : 'Register'}
-                </button>
-
-                <p className="auth-link">
-                    Already have an account? <Link to="/login">Login here</Link>
-                </p>
-            </form>
+            </div>
         </div>
     );
 };

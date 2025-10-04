@@ -24,5 +24,10 @@ export const dataService = {
     getLeaderboard: async () => {
         const response = await api.get('/leaderboard');
         return response.data;
+    },
+    // services/dataService.js - добавить этот метод
+    getGrandPrixResults: async (grandPrixId) => {
+        const response = await api.get(`/results/${grandPrixId}/dto`);
+        return response.data;
     }
 };

@@ -1,4 +1,3 @@
-// components/Layout/ConfirmLogoutModal.js
 import React from 'react';
 import './ConfirmLogoutModal.css';
 

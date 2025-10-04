@@ -1,4 +1,3 @@
-/* Sidebar Styles */
 .sidebar {
     width: 280px;
     background-color: var(--bg-color);
@@ -18,7 +17,6 @@
     flex-direction: column;
 }
 
-/* Sidebar Logo */
 .sidebar-logo {
     color: #000;
     font-size: 2.2rem;
@@ -37,7 +35,6 @@
     height: 60px;
 }
 
-/* Sidebar Menu Items */
 .sidebar-menu {
     display: flex;
     flex-direction: column;
@@ -55,7 +52,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    font-weight: 500;
+    font-weight: 600;
     background-color: transparent;
     position: relative;
     border: none;
@@ -68,7 +65,6 @@
     font-size: inherit;
 }
 
-/* Circle indicator */
 .sidebar-link::before {
     content: '';
     width: 20px;
@@ -82,7 +78,6 @@
     transform: translateY(-50%);
 }
 
-/* Hover effects */
 .sidebar-link:hover {
     background-color: #f0f0f0;
     color: var(--text-color);
@@ -90,10 +85,13 @@
     border-color: #e0e0e0;
 }
 
-/* Active state */
+.sidebar-link:hover::before {
+    background-color: #999;
+}
+
 .sidebar-link.active {
     background-color: #f0f0f0;
-    color: var(--primary-color);
+    color: var(--text-color);
     font-weight: 600;
     border-left: 3px solid var(--primary-color);
 }
@@ -105,38 +103,12 @@
 .sidebar-link.active:hover {
     background-color: #e8e8e8;
     border-color: #d0d0d0;
+    color: var(--text-color);
 }
 
-.sidebar-link:not(.active):hover::before {
-    background-color: #999;
-}
-
-/* Special styles for Sign Out button */
-.sidebar-signout::before {
-    background-color: #ff6b6b;
-}
-
-.sidebar-signout:hover::before {
-    background-color: #ff5252;
-}
-
-/* Special styles for Sign In button */
-.sidebar-signin::before {
-    background-color: #4ecdc4;
-}
-
-.sidebar-signin:hover::before {
-    background-color: #26a69a;
-}
-
-.sidebar-signin.active::before {
-    background-color: var(--primary-color);
-}
-
-/* Icon and Text */
 .sidebar-link .link-icon {
     font-size: 1.2rem;
-    width: 20px;
+    width: 2px;
     height: 20px;
     text-align: center;
     line-height: 20px;
@@ -149,10 +121,9 @@
 
 .sidebar-link .link-text {
     flex: 1;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
 }
 
-/* User Welcome Section */
 .sidebar-user {
     color: var(--text-light);
     font-size: 0.9rem;
@@ -170,20 +141,86 @@
     margin: 15px;
 }
 
-/* Focus states */
 .sidebar-link:focus {
     outline: none;
     border-color: #ddd;
     background-color: #f8f8f8;
 }
 
-/* Active state for clicks */
 .sidebar-link:active {
     transform: scale(0.98) translateX(2px);
     background-color: #e8e8e8;
 }
 
-/* Scrollbar Styling */
+@media (max-width: 768px) {
+    .sidebar-link {
+        width: 100%;
+        margin-left: 0;
+        padding: 12px 15px 12px 40px;
+        transform: none !important;
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .sidebar-link::before {
+        left: 15px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .sidebar-menu {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 10px;
+    }
+
+    .sidebar-link:hover {
+        transform: translateY(-2px) !important;
+    }
+
+    .sidebar-link .link-icon {
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+    }
+
+    .sidebar-user {
+        padding: 12px;
+        margin: 10px;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .sidebar-link.active {
+        border-left: none;
+        border-top: 3px solid var(--primary-color);
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-link {
+        padding: 12px 15px 12px 35px;
+    }
+
+    .sidebar-link::before {
+        left: 12px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .sidebar-link .link-icon {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        font-size: 1rem;
+    }
+
+    .sidebar-user {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+}
+
 .sidebar::-webkit-scrollbar {
     width: 6px;
 }

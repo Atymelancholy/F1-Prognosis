@@ -1,15 +1,35 @@
-// components/Leaderboard/Leaderboard.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { dataService } from '../../services/dataService';
 import OIPImage from '../../assets/R.png';
 
 const Leaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
+    const [sortedLeaderboard, setSortedLeaderboard] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [sortOrder, setSortOrder] = useState('desc');
+    const [showSortMenu, setShowSortMenu] = useState(false);
+    const sortMenuRef = useRef(null);
 
     useEffect(() => {
         loadLeaderboard();
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (sortMenuRef.current && !sortMenuRef.current.contains(event.target)) {
+                setShowSortMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        sortLeaderboardData();
+    }, [leaderboard, sortOrder]);
 
     const loadLeaderboard = async () => {
         try {
@@ -23,11 +43,33 @@ const Leaderboard = () => {
         }
     };
 
+    const sortLeaderboardData = () => {
+        const sorted = [...leaderboard].sort((a, b) => {
+            const scoreA = a.totalScore || 0;
+            const scoreB = b.totalScore || 0;
+
+            if (sortOrder === 'desc') {
+                return scoreB - scoreA;
+            } else {
+                return scoreA - scoreB;
+            }
+        });
+        setSortedLeaderboard(sorted);
+    };
+
+    const toggleSortMenu = () => {
+        setShowSortMenu(!showSortMenu);
+    };
+
+    const handleSortChange = (order) => {
+        setSortOrder(order);
+        setShowSortMenu(false);
+    };
+
     const getInitials = (username) => {
         return username ? username.charAt(0).toUpperCase() : 'U';
     };
 
-    // Функция для отображения аватара
     const renderAvatar = (user) => {
         console.log(`Rendering avatar for ${user.username}:`, {
             hasAvatar: !!user.avatar,
@@ -35,7 +77,6 @@ const Leaderboard = () => {
         });
 
         if (user.avatar) {
-            // Создаем data URL - бэкенд возвращает чистый base64
             const avatarUrl = `data:image/jpeg;base64,${user.avatar}`;
 
             return (
@@ -54,7 +95,6 @@ const Leaderboard = () => {
             );
         }
 
-        // Если аватара нет, показываем placeholder
         return (
             <div className="avatar-placeholder-small">
                 {getInitials(user.username)}
@@ -71,6 +111,35 @@ const Leaderboard = () => {
             <div className="leaderboard-header">
                 <div className="leaderboard-title-section">
                     <h2 className="leaderboard-title">Leaderboard</h2>
+                    <div className="sort-container" ref={sortMenuRef}>
+                        <button
+                            className="filter-btn"
+                            onClick={toggleSortMenu}
+                            title="Sort options"
+                        >
+                            <span className="filter-icon">⏷</span>
+                            Filter
+                        </button>
+
+                        {showSortMenu && (
+                            <div className="sort-menu">
+                                <div
+                                    className={`sort-option ${sortOrder === 'desc' ? 'active' : ''}`}
+                                    onClick={() => handleSortChange('desc')}
+                                >
+                                    <span className="sort-icon">⏷</span>
+                                    High to Low
+                                </div>
+                                <div
+                                    className={`sort-option ${sortOrder === 'asc' ? 'active' : ''}`}
+                                    onClick={() => handleSortChange('asc')}
+                                >
+                                    <span className="sort-icon">⏶</span>
+                                    Low to High
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <img src={OIPImage} alt="Leaderboard" className="leaderboard-image" />
             </div>
@@ -82,7 +151,7 @@ const Leaderboard = () => {
             </div>
 
             <div className="leaderboard-data">
-                {leaderboard.map((user, index) => (
+                {sortedLeaderboard.map((user, index) => (
                     <div key={user.id || index} className="data-row">
                         <div className="data-avatar">
                             {renderAvatar(user)}
@@ -93,7 +162,7 @@ const Leaderboard = () => {
                 ))}
             </div>
 
-            {leaderboard.length === 0 && (
+            {sortedLeaderboard.length === 0 && (
                 <div className="no-data">
                     <p>No leaderboard data available</p>
                 </div>

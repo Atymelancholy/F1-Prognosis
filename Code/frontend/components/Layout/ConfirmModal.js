@@ -1,4 +1,3 @@
-// components/Layout/ConfirmModal.js
 import React from 'react';
 
 const ConfirmModal = ({ isOpen, onClose, onConfirm, title, message, confirmText = "Yes", cancelText = "No" }) => {

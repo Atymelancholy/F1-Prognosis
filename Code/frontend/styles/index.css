@@ -1,4 +1,3 @@
-/* Главный файл - импорты всех модулей */
 @import './base/reset.css';
 @import './base/variables.css';
 @import './base/typography.css';
@@ -13,6 +12,7 @@
 @import './components/calendar.css';
 @import './components/leaderboard.css';
 @import './components/modal.css';
+@import '../components/GrandPrix/GrandPrixCard.css';
 
 @import './pages/profile.css';
 @import './pages/admin.css';

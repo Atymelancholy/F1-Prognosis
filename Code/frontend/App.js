@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
@@ -9,11 +8,11 @@ import HomePage from './pages/HomePage';
 import Leaderboard from './components/Leaderboard/Leaderboard';
 import ProfilePage from './pages/ProfilePage';
 import AdminResultsPage from './pages/AdminResultsPage';
+import LogoutConfirmationPage from './pages/LogoutConfirmationPage';
 import ProtectedRoute from './components/Layout/ProtectedRoute';
 import AdminRoute from './components/Layout/AdminRoute';
 
-// App.js
-import './styles/index.css'; // Импортируем главный CSS файл
+import './styles/index.css';
 
 function App() {
     return (
@@ -27,6 +26,15 @@ function App() {
                             <Route path="/register" element={<RegisterPage />} />
                             <Route path="/" element={<HomePage />} />
                             <Route path="/leaderboard" element={<Leaderboard />} />
+
+                            <Route
+                                path="/logout-confirm"
+                                element={
+                                    <ProtectedRoute>
+                                        <LogoutConfirmationPage />
+                                    </ProtectedRoute>
+                                }
+                            />
 
                             <Route
                                 path="/profile"

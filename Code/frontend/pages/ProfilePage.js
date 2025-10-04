@@ -1,11 +1,10 @@
-// pages/ProfilePage.js
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import AvatarUpload from '../components/Profile/AvatarUpload';
 import { userService } from '../services/userService';
 import OIPImage from '../assets/R.png';
-import Formula1Image from '../assets/formula_1.png'; // Добавляем импорт
+import Formula1Image from '../assets/formula_1.png';
 
 const ProfilePage = () => {
     const { user, updateUser, isAuthenticated, loading } = useAuth();

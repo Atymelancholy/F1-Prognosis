@@ -1,4 +1,3 @@
-// contexts/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authService } from '../services/authService';
 
@@ -68,7 +67,6 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    // ✅ ДОБАВЛЯЕМ ФУНКЦИЮ ДЛЯ ОБНОВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ
     const updateUser = (userData) => {
         console.log('🔄 AuthContext: updating user', {
             hasAvatar: !!userData.avatar,
@@ -80,13 +78,13 @@ export const AuthProvider = ({ children }) => {
 
     const value = {
         user,
-        setUser, // ✅ Должен быть в value
-        updateUser, // ✅ Добавляем в value
+        setUser,
+        updateUser,
         login,
         register,
         logout,
         isAuthenticated: !!user,
-        isAdmin: isAdmin(), // Вызываем функцию
+        isAdmin: isAdmin(),
         loading
     };
 

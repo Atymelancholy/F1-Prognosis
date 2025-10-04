@@ -1,4 +1,3 @@
-// components/Profile/AvatarUpload.js
 import React, { useState, useRef, useEffect } from 'react';
 import { userService } from '../../services/userService';
 import { useAuth } from '../../contexts/AuthContext';
@@ -11,13 +10,11 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange, showControls = false }) =
     const fileInputRef = useRef(null);
     const { user } = useAuth();
 
-    // Функция для создания data URL из base64
     const createDataUrl = (base64Data, mimeType = 'image/jpeg') => {
         if (!base64Data) return '';
         return `data:${mimeType};base64,${base64Data}`;
     };
 
-    // Обновляем preview при изменении currentAvatar
     useEffect(() => {
         if (currentAvatar) {
             const url = currentAvatar.startsWith('data:')
@@ -46,7 +43,6 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange, showControls = false }) =
         setSelectedImage(file);
         setMessage('');
 
-        // Временный preview из файла
         const reader = new FileReader();
         reader.onload = (e) => {
             setPreviewUrl(e.target.result);
@@ -86,7 +82,6 @@ const AvatarUpload = ({ currentAvatar, onAvatarChange, showControls = false }) =
         } catch (error) {
             console.error('❌ Avatar upload error:', error);
             setMessage('Error uploading avatar: ' + (error.response?.data?.message || error.message));
-            // В случае ошибки возвращаем старый аватар
             if (currentAvatar) {
                 const dataUrl = createDataUrl(currentAvatar);
                 setPreviewUrl(dataUrl);

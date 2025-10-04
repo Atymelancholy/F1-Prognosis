@@ -1,0 +1,259 @@
+.login-page {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+/* Фоновые изображения - ЦЕНТРИРОВАННАЯ */
+.background-image {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.15;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1200px;
+    height: 1200px;
+    background-size: contain;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Основной контент - ПОДНЯТ ВВЕРХ */
+.login-content {
+    padding: 0 20px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    z-index: 1;
+    margin-top: 60px;
+}
+
+.login-form-container {
+    text-align: center;
+    background: transparent;
+    padding: 20px 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    backdrop-filter: none;
+}
+
+/* Заголовки - УМЕНЬШЕНЫ ОТСТУПЫ */
+.login-header {
+    margin-bottom: 20px;
+}
+
+.login-title {
+    color: #000;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 80px 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-subtitle {
+    color: #000;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.login-instruction {
+    color: #666;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0 0 8px 0;
+    line-height: 1.5;
+}
+
+/* Форма - используем margin вместо gap */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.form-group {
+    margin-bottom: 8px !important;
+}
+
+.form-group:last-child {
+    margin-bottom: 0 !important;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f5f5f5 !important; /* ТАКОЙ ЖЕ КАК У ФОНА */
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #000;
+    background-color: #f5f5f5 !important; /* ОСТАЕТСЯ ТАКИМ ЖЕ ПРИ ФОКУСЕ */
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+/* Кнопки - МАЛЕНЬКИЕ РАССТОЯНИЯ */
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px !important;
+}
+
+.login-page .btn {
+    padding: 14px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-transform: none;
+    letter-spacing: normal;
+    background-color: #000000;
+    color: white;
+}
+
+.login-page .btn:hover:not(:disabled) {
+    background-color: #333333;
+    transform: translateY(-1px);
+}
+
+.login-page .btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Сообщение об ошибке */
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    text-align: center;
+    border: 1px solid #ffcdd2;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .background-image {
+        width: 600px;
+        height: 600px;
+    }
+
+    .login-content {
+        padding: 0 15px;
+        max-width: 400px;
+        margin-top: 40px;
+    }
+
+    .login-header {
+        margin-bottom: 15px;
+    }
+
+    .login-title {
+        font-size: 2.5rem;
+        margin: 0 0 30px 0;
+    }
+
+    .login-subtitle {
+        font-size: 1.5rem;
+        margin: 0 0 6px 0;
+    }
+
+    .login-instruction {
+        font-size: 1rem;
+        margin: 0 0 6px 0;
+    }
+
+    .form-group {
+        margin-bottom: 6px !important;
+    }
+
+    .form-group input {
+        background-color: #f5f5f5 !important;
+    }
+
+    .form-actions {
+        gap: 6px;
+        margin-top: 6px !important;
+    }
+
+    .error-message {
+        margin-bottom: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .background-image {
+        width: 400px;
+        height: 400px;
+    }
+
+    .login-content {
+        padding: 0 10px;
+        max-width: 350px;
+        margin-top: 30px;
+    }
+
+    .login-header {
+        margin-bottom: 12px;
+    }
+
+    .login-title {
+        font-size: 2.2rem;
+        margin: 0 0 25px 0;
+    }
+
+    .login-subtitle {
+        font-size: 1.3rem;
+        margin: 0 0 4px 0;
+    }
+
+    .login-instruction {
+        font-size: 0.95rem;
+        margin: 0 0 4px 0;
+    }
+
+    .form-group {
+        margin-bottom: 4px !important;
+    }
+
+    .form-group input {
+        background-color: #f5f5f5 !important;
+    }
+
+    .form-actions {
+        gap: 4px;
+        margin-top: 4px !important;
+    }
+
+    .error-message {
+        margin-bottom: 4px;
+    }
+} 

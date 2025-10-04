@@ -1,16 +1,14 @@
-// components/Layout/Sidebar.js
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = () => {
-    const { user, logout, isAuthenticated, isAdmin } = useAuth();
+    const { user, isAuthenticated, isAdmin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
-    const handleLogout = () => {
-        logout();
-        navigate('/');
+    const handleSignOutClick = () => {
+        navigate('/logout-confirm');
     };
 
     const handleSignIn = () => {
@@ -21,31 +19,28 @@ const Sidebar = () => {
         return location.pathname === path;
     };
 
-    // Основные навигационные элементы для всех пользователей
+    const isSignOutActive = location.pathname === '/logout-confirm';
+    const isSignInActive = location.pathname === '/login';
+
     const publicNavItems = [
-        { path: '/', label: 'Calendar', icon: '📅' },
-        { path: '/leaderboard', label: 'Leaderboard', icon: '🏆' }
+        { path: '/', label: 'Calendar' },
+        { path: '/leaderboard', label: 'Leaderboard' }
     ];
 
-    // Навигационные элементы только для обычных пользователей
     const userNavItems = [
-        { path: '/profile', label: 'Profile', icon: '👤' }
+        { path: '/profile', label: 'Profile'}
     ];
 
-    // Навигационные элементы для администратора
     const adminNavItems = [
-        { path: '/admin/results', label: 'Manage Results', icon: '🏁' }
+        { path: '/admin/results', label: 'Manage Results' }
     ];
 
     return (
         <nav className="sidebar">
             <div className="sidebar-container">
-                <div className="sidebar-logo">
-                    Menu
-                </div>
+                <div className="sidebar-logo">Menu</div>
 
                 <div className="sidebar-menu">
-                    {/* Публичные пункты меню */}
                     {publicNavItems.map((item) => (
                         <Link
                             key={item.path}
@@ -57,7 +52,6 @@ const Sidebar = () => {
                         </Link>
                     ))}
 
-                    {/* Пункты меню для обычных пользователей */}
                     {isAuthenticated && !isAdmin && userNavItems.map((item) => (
                         <Link
                             key={item.path}
@@ -69,7 +63,6 @@ const Sidebar = () => {
                         </Link>
                     ))}
 
-                    {/* Пункты меню для администратора */}
                     {isAuthenticated && isAdmin && adminNavItems.map((item) => (
                         <Link
                             key={item.path}
@@ -81,32 +74,24 @@ const Sidebar = () => {
                         </Link>
                     ))}
 
-                    {/* Динамическая кнопка Sign Out / Sign In */}
                     {isAuthenticated ? (
                         <button
-                            onClick={handleLogout}
-                            className="sidebar-link sidebar-signout"
+                            onClick={handleSignOutClick}
+                            className={`sidebar-link sidebar-signout ${isSignOutActive ? 'active' : ''}`}
                         >
-                            <span className="link-icon">🚪</span>
+                            <span className="link-icon"></span>
                             <span className="link-text">Sign Out</span>
                         </button>
                     ) : (
                         <button
                             onClick={handleSignIn}
-                            className="sidebar-link sidebar-signin"
+                            className={`sidebar-link sidebar-signin ${isSignInActive ? 'active' : ''}`}
                         >
-                            <span className="link-icon">🔑</span>
+                            <span className="link-icon"></span>
                             <span className="link-text">Sign In</span>
                         </button>
                     )}
                 </div>
-
-                {/* Блок с приветствием */}
-                {isAuthenticated && (
-                    <div className="sidebar-user">
-                        {isAdmin && <span style={{color: '#e10600', marginLeft: '5px'}}>(Admin)</span>}
-                    </div>
-                )}
             </div>
         </nav>
     );
